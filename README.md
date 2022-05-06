@@ -58,3 +58,8 @@ Hit Ctrl-C to quit.
 ```
 
 Y a continuación introducimos en el navegador la URL [http://localhost:8080/hello/world](http://localhost:8080/hello/world).
+
+## Recursos
+
+* [Bottle - Web oficial del proyecto](http://bottlepy.org/)
+* [Bottle - Documentación](https://bottlepy.org/docs/dev/index.html)
