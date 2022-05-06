@@ -2,7 +2,7 @@
 
 ## Antes de empezar
 
-Este proyecto y su documentación están disponibles en [GitHub](https://github.com/ichigar/boottle-todo)
+Este proyecto y su documentación están disponibles en [GitHub](https://github.com/ichigar/bottle-todo)
 
 Puedes clonarlo ejecutando:
 
