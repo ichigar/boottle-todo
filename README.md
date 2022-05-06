@@ -162,6 +162,8 @@ def todo_list():
 ```
 Si en el navegador accederemos a la URL [http://localhost:8080/my_todo_list](http://localhost:8080/my_todo_list) obtenemos el mismo resultado
 
+## Lesson3. Dando formato con plantillas
+
 
 ## Recursos
 
