@@ -17,8 +17,9 @@ $ git checkout lesson1
 $ git checkout lesson2
 ...
 ```
+## Lesson1. Empezando con bootle
 
-## Creando el entorno virtual de desarrollo
+### Creando el entorno virtual de desarrollo
 Para empezar a usar bottle creamos un entorno virtual de desarrollo.
 
 En la carpeta raíz de nuestro proyecto ejecutamos:
@@ -41,7 +42,7 @@ El prompt del sistema aparecerá como:
 
 Esto nos va a permitir empaquetar nuestra aplicación con todas sus dependencias en una carpeta.
 
-## Instalación de bottle
+### Instalación de bottle
 
 Utilizando el gestor de paquetes de Python, instalamos bottle.
 ```bash
@@ -52,7 +53,7 @@ Installing collected packages: bottle
 Successfully installed bottle-0.12.19
 ```
 
-## Comprobación de funcionamiento
+### Comprobación de funcionamiento
 
 creamos en el raíz del proyecto un fichero `hello.py` con el siguiente contenido:
 
