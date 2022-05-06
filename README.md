@@ -7,7 +7,7 @@ Este proyecto y su documentación están disponibles en [GitHub](https://github.
 Puedes clonarlo ejecutando:
 
 ```bash
-$ git clone https://github.com/ichigar/boottle-todo.git
+$ git clone https://github.com/ichigar/bottle-todo.git
 ```
 
 El proyecto se ha desarrollado paso por paso en ramas. Puedes ver el desarrollo paso a paso del proyecto ejecutando:
