@@ -1,5 +1,8 @@
 # Introducción a bootle
-## Creando el entorno virtual de desarrollo
+
+## Lesson1. Empezando con bootle
+
+### Creando el entorno virtual de desarrollo
 Para empezar a usar bottle creamos un entorno virtual de desarrollo.
 
 En la carpeta raíz de nuestro proyecto ejecutamos:
@@ -22,7 +25,7 @@ El prompt del sistema aparecerá como:
 
 Esto nos va a permitir empaquetar nuestra aplicación con todas sus dependencias en una carpeta.
 
-## Instalación de bottle
+### Instalación de bottle
 
 Utilizando el gestor de paquetes de Python, instalamos bottle.
 ```bash
@@ -33,7 +36,7 @@ Installing collected packages: bottle
 Successfully installed bottle-0.12.19
 ```
 
-## Comprobación de funcionamiento
+### Comprobación de funcionamiento
 
 creamos en el raíz del proyecto un fichero `hello.py` con el siguiente contenido:
 
@@ -59,8 +62,9 @@ Hit Ctrl-C to quit.
 
 Y a continuación introducimos en el navegador la URL [http://localhost:8080/hello/world](http://localhost:8080/hello/world).
 
-## Configuración inicial de la aplicación
+## Lesson2. Configuración inicial de la aplicación
 
+### Creando la base de datos
 Empezamos creando la base de datos. Para ello creamos en la subcarpeta `config` un fichero con el nombre `create_database.py` con el siguiente contenido:
 
 ```python
@@ -97,6 +101,17 @@ el fichero `hello.py` ya no lo necesitamos, así que lo podemos eliminar:
 
 ```bash
 (.venv) $ rm hello.py
+```
+
+La estructura actual de nuestro proyecto debería ser:
+
+```bash
+(.venv) $ tree
+.
+├── bootstrap.py
+├── config
+│   └── create_database.py
+└── README.md
 ```
 ## Recursos
 
