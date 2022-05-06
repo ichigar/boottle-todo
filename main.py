@@ -3,6 +3,7 @@ from bottle import route, run
 from config.config import db_file
 
 @route('/todo')
+@route('/my_todo_list')
 def todo_list():
     conn = sqlite3.connect(db_file)
     c = conn.cursor()
