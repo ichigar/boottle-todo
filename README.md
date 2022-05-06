@@ -59,6 +59,45 @@ Hit Ctrl-C to quit.
 
 Y a continuación introducimos en el navegador la URL [http://localhost:8080/hello/world](http://localhost:8080/hello/world).
 
+## Configuración inicial de la aplicación
+
+Empezamos creando la base de datos. Para ello creamos en la subcarpeta `config` un fichero con el nombre `create_database.py` con el siguiente contenido:
+
+```python
+import sqlite3
+def create_database(db_file):
+    conn = sqlite3.connect(db_file) # Warning: This file is created in the current directory
+    conn.execute("CREATE TABLE todo (id INTEGER PRIMARY KEY, task char(100) NOT NULL, status bool NOT NULL)")
+    conn.execute("INSERT INTO todo (task,status) VALUES ('Read A-byte-of-python to get a good introduction into Python',0)")
+    conn.execute("INSERT INTO todo (task,status) VALUES ('Visit the Python website',1)")
+    conn.execute("INSERT INTO todo (task,status) VALUES ('Test various editors for and check the syntax highlighting',1)")
+    conn.execute("INSERT INTO todo (task,status) VALUES ('Choose your favorite WSGI-Framework',0)")
+    conn.commit()
+```
+
+Creamos en la carpeta inicial del proyecto un fichero `bootstrap.py` con el siguiente contenido:
+
+```python
+from config.create_database import create_database
+
+if __name__ == '__main__':
+    db_file = 'todo.db'
+    create_database(db_file)
+```
+
+Solo se debería ejecutar una vez y es el encargado de crear la base de datos e insertar en la misma los datos iniciales.
+
+lo ejecutamos:
+
+```bash
+(.venv) $ python bootstrap.py
+```
+
+el fichero `hello.py` ya no lo necesitamos, así que lo podemos eliminar:
+
+```bash
+(.venv) $ rm hello.py
+```
 ## Recursos
 
 * [Bottle - Web oficial del proyecto](http://bottlepy.org/)
