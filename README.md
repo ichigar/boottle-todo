@@ -1,5 +1,23 @@
 # Introducción a bootle
 
+## Antes de empezar
+
+Este proyecto y su documentación están disponibles en [GitHub](https://github.com/ichigar/boottle-todo)
+
+Puedes clonarlo ejecutando:
+
+```bash
+$ git clone https://github.com/ichigar/boottle-todo.git
+```
+
+El proyecto se ha desarrollado paso por paso en ramas. Puedes ver el desarrollo paso a paso del proyecto ejecutando:
+
+```bash
+$ git checkout lesson1
+$ git checkout lesson2
+...
+```
+
 ## Lesson1. Empezando con bootle
 
 ### Creando el entorno virtual de desarrollo
