@@ -52,6 +52,16 @@ Collecting bottle
 Installing collected packages: bottle
 Successfully installed bottle-0.12.19
 ```
+Para poder usar este proyecto en otro equipo debemos añadir las dependiencias del mismo a un fichero. Lo hacemos ejecutando:
+
+```bash
+$ pip freeze > requirements.txt
+```
+Si copiaramos esta carpeta en otro equipo podríamos instalar las dependencias de este proyecto en el equipo destino. Después de crear el entorno virtual ejecutamos:
+
+```bash
+$ pip install -r requirements.txt
+```
 
 ### Comprobación de funcionamiento
 
