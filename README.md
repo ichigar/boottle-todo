@@ -202,6 +202,8 @@ Bottle incluye su propio motor de plantillas:
 * Las plantillas pueden incluir texto y código en Python que se ejecutará cuando se llame a la plantilla. 
 * A la plantilla se le pueden pasar parámetros, como por ejemplo el resultado de una consulta a una base de datos, que luego podrán ser formateados y presentar en la página.
 
+### Mostrando resultados
+
 Para que el resultado de una consulta sea presentado por una plantilla se utiliza la función `template()`. 
 
 A la función se le pasa el nombre de la plantilla y un diccionario con los parámetros que se le pasarán a la plantilla:
