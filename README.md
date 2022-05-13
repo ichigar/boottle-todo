@@ -239,6 +239,73 @@ Creamos la subcarpeta `views` y dentro de ella creamos el fichero `make_table.tp
 
 El motor de plantillas se encarga de interpretar en Python las líneas que empiezan por `%`
 
+### Recibiendo datos de entrada
+
+Las plantillas las usaremos también para recoger información de los usuarios.
+
+Vamos a crear una plantilla que será un formulario para añadir una nueva tarea. Dentro de la carpeta `views` crearemos el fichero `new_task.tpl` con el siguiente contenido:
+
+```html
+<p>Añadir una nueva tarea a la lista:</p>
+<form action="/new" method="POST">
+  <input type="text" size="100" maxlength="100" name="task">
+  <input type="submit" name="save" value="save">
+</form>
+```
+
+En el atributo `action` de `form` indicamos que la ruta que ha de procesar los datos recibidos por el formulario es `/new` y en el atributo `method` indicamos que se trata de un formulario de tipo `POST`.
+
+El formulario contiene un campo de entrada de texto que almacena en la variable `task` el texto que el usuario introduce en el campo de entrada y un botón que al pulsarlo envía los datos al servidor y le pasa en la variable `save` el valor `save`.
+
+Para mostrar el formulario añadimos la ruta correspondiente al programa y la función que se debe ejecutar.:
+
+```python
+@route('/new')
+def new_item_form():
+    return template('new_task')
+```
+
+Con esto conseguimos que al acceder a la URL [http://localhost:8080/new](http://localhost:8080/new) se muestre el formulario.
+
+Tenemos que añadir una nueva ruta para procesar los datos recibidos por el formulario. En el formulario hemos especificado en el atributo `action` la ruta `/new` para procesaar los datos y en el atributo `method` indicamos que se trata de un formulario de tipo `POST`.
+
+Por defecto las rutas de Bottle son `GET` y para indicar que se trata de un formulario de tipo `POST` se le pasa al decorador de la ruta el parámetro `method='POST'`.
+
+```python
+@route('/new', method='POST')
+...
+```
+
+Dentro de la función encargada de procesar los datos recibidos estos han de poder recogerse. Bottle se encarga de hacer esto en el objeto `request` que para poder utilizarlo hemos de importar:
+
+```python
+from bottle import route, run, template, request
+```
+
+La función que procesa el formulario quedaría de la forma:
+
+
+```python
+@route('/new', method='POST')
+def new_item_save():
+    if request.POST.save:  # the user clicked the `save` button
+        new = request.POST.task.strip()    # get the task from the form
+        conn = sqlite3.connect('todo.db')
+        c = conn.cursor()
+
+        c.execute("INSERT INTO todo (task,status) VALUES (?,?)", (new,1))
+        new_id = c.lastrowid
+
+        conn.commit()
+        c.close()
+        # se muestra el resultado de la operación
+        return '<p>The new task was inserted into the database, the ID is %s</p>' % new_id
+```
+
+* `request.POST` es un diccionario que contiene los datos recibidos por el formulario.
+  * `request.POST.save` es una cadena que contiene el valor `save` que se ha introducido en el botón de envío.
+  * `request.POST.task` es una cadena que contiene el texto que el usuario ha introducido en el campo de entrada.
+
 
 ## Recursos
 
