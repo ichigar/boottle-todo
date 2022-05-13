@@ -191,6 +191,15 @@ def todo_list():
 ```
 Si en el navegador accederemos a la URL [http://localhost:8080/my_todo_list](http://localhost:8080/my_todo_list) obtenemos el mismo resultado
 
+### Siguiente lección
+
+En la siguiente lección veremos cómo utilizar plantillas para recoger y mostrar información.
+
+Para acceder a la misma nos cambiamos a la rama de la lección:
+
+```bash
+$ git switch lesson3
+```
 
 ## Recursos
 
