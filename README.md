@@ -14,7 +14,7 @@ El proyecto se ha desarrollado paso por paso en ramas. Pasándote a la rama de c
 
 ```bash
 $ git switch lesson1
-$ git checkout lesson2
+$ git switch lesson2
 ...
 ```
 
