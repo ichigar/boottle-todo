@@ -89,6 +89,16 @@ Hit Ctrl-C to quit.
 
 Y a continuación introducimos en el navegador la URL [http://localhost:8080/hello/world](http://localhost:8080/hello/world).
 
+### Siguiente lección
+
+En la siguiente lección veremos cómo realizar la configuración inicial para una aplicación de gestión de tareas.
+
+Para acceder a la misma nos cambiamos a la rama de la lección:
+
+```bash
+$ git switch lesson2
+```
+
 ## Recursos
 
 * [Bottle - Web oficial del proyecto](http://bottlepy.org/)
