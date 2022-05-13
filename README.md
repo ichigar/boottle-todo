@@ -10,10 +10,10 @@ Puedes clonarlo ejecutando:
 $ git clone https://github.com/ichigar/bottle-todo.git
 ```
 
-El proyecto se ha desarrollado paso por paso en ramas. Puedes ver el desarrollo paso a paso del proyecto ejecutando:
+El proyecto se ha desarrollado paso por paso en ramas. Pasándote a la rama de cada lección, podrás ver el código fuente de cada una y la documentación:
 
 ```bash
-$ git checkout lesson1
+$ git switch lesson1
 $ git checkout lesson2
 ...
 ```
