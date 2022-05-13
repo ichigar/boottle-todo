@@ -192,6 +192,51 @@ Si en el navegador accederemos a la URL [http://localhost:8080/my_todo_list](htt
 
 ## Lesson3. Dando formato con plantillas
 
+### Las plantillas
+
+Las plantillas permiten dar formato en HTML a los datos que nos devuelven las funciones.
+
+Bottle incluye su propio motor de plantillas:
+* Las plantillas se almacenan en archivos separados con la extensión `.tpl`. 
+* Las plantillas pueden ser llamadas desde las funciones que devuelven los datos.
+* Las plantillas pueden incluir texto y código en Python que se ejecutará cuando se llame a la plantilla. 
+* A la plantilla se le pueden pasar parámetros, como por ejemplo el resultado de una consulta a una base de datos, que luego podrán ser formateados y presentar en la página.
+
+Para que el resultado de una consulta sea presentado por una plantilla se utiliza la función `template()`. 
+
+A la función se le pasa el nombre de la plantilla y un diccionario con los parámetros que se le pasarán a la plantilla:
+
+```python
+from bottle import route, run, debug, template
+...
+result = c.fetchall()
+c.close()
+output = template('make_table', rows=result)
+return output
+...
+```
+Importamos `template` para poder utilizarla y le pasamos como primer parámetro el nombre de la plantilla y como segundo parámetro el resultado de la consulta que se le pasará a la plantilla en la variable `rows`.
+
+El nombre del fichero de la plantilla debe ser `make_table.tpl` y debe estar en la misma carpeta que la aplicación o en la subcarpta `views`
+
+Creamos la subcarpeta `views` y dentro de ella creamos el fichero `make_table.tpl` con el siguiente contenido:
+
+```html
+%#template to generate a HTML table from a list of tuples (or list of lists, or tuple of tuples or ...)
+<p>Las tareas pendientes son las siguientes:</p>
+<table border="1">
+%for row in rows:
+  <tr>
+  %for col in row:
+    <td>{{col}}</td>
+  %end
+  </tr>
+%end
+</table>
+```
+
+El motor de plantillas se encarga de interpretar en Python las líneas que empiezan por `%`
+
 
 ## Recursos
 
