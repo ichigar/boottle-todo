@@ -526,7 +526,9 @@ Hasta ahora hemos creado rutas para mostrar páginas dinámicas, pero nuestra we
 
 Igual que con el contenido dinámico, cuando queremos acceder directamente o desde las plantillas a contenido estático **Bottle** ha de saber como acceder al mismo.
 
-Paraestructurar mejor nuestro código podemos crear la carpeta `static` y usarla como base para las rutas estáticas. Si creamos endicha carpeta un archivo `about.html` con el siguiente contenido:
+### La función `static_file`
+
+Para estructurar mejor nuestro código podemos crear la carpeta `static` y usarla como base para las rutas estáticas. Si creamos en dicha carpeta un archivo `about.html` con el siguiente contenido:
 
 ```html
 <!DOCTYPE html>
@@ -600,6 +602,29 @@ Si en la carpeta `static/css` insertamos un archivo con los estilos a aplicar ta
 ...
 ```
 
+### Personalizando la página de error 404
+
+Cuando en un servidor accedemos a una ruta que no existe se suele mostrar una página de error 404.
+
+Bottle dispone de un decorador que permite crear la ruta de error 404.
+
+```python
+@error(404)
+def error404(error):
+    return static_file('404.html', root='static')
+```
+
+En el caso anterior devolvemos el contenido estático `404.html` que se encuentra en la carpeta `static`. El contenido de dicha página podría ser:
+
+```html
+...
+<body>
+    <h1>Parece que se ha producido un error</h1>
+    <h2>el servidor retorno un error 404</h2>  
+    <p>En el <a href="/todo" >siguiente enlace</a> podrás acceder a la página de inicio</p> 
+</body>
+</html>
+```
 
 ## Recursos
 

@@ -88,6 +88,9 @@ def about():
 def html(filepath):
     return static_file(filepath, root = "static")
 
+@error(404)
+def error404(error):
+    return static_file('404.html', root='static')
 
 if __name__ == '__main__':
     run(host='localhost', port=8080, debug=True, reloader=True)
