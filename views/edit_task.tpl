@@ -12,8 +12,8 @@
       <input type="text" name="task" value="{{old[0]}}" size="100" maxlength="100">
       <select name="status">
         
-        <option {{sel_pte}}>pendiente</option>
-        <option {{sel_done}}>finalizada</option>
+        <option>pendiente</option>
+        <option>finalizada</option>
       </select>
       <br>
       <input type="submit" name="save" value="save">
