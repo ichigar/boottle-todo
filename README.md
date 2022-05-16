@@ -107,15 +107,20 @@ def create_database(db_file):
     conn.execute("INSERT INTO todo (task,status) VALUES ('Choose your favorite WSGI-Framework',0)")
     conn.commit()
 ```
+Creamos en la carpeta `config`también un fichero `config.py`en el que iremos almacenando los parámetros de configuración de la aplicación. De momento guardaremos el nombre de la base de datas en la variable `DATABASE`:
+
+```python
+DATABASE = 'todo.db'
+```
 
 Creamos en la carpeta inicial del proyecto un fichero `bootstrap.py` con el siguiente contenido:
 
 ```python
 from config.create_database import create_database
+from config.config import DATABASE
 
 if __name__ == '__main__':
-    db_file = 'todo.db'
-    create_database(db_file)
+    create_database(DATABASE)
 ```
 
 Solo se debería ejecutar una vez y es el encargado de crear la base de datos e insertar en la misma los datos iniciales.
@@ -135,10 +140,11 @@ el fichero `hello.py` ya no lo necesitamos, así que lo podemos eliminar:
 La estructura actual de nuestro proyecto debería ser:
 
 ```bash
-(.venv) $ tree
+(.venv) $ tree             
 .
 ├── bootstrap.py
 ├── config
+│   ├── config.py
 │   └── create_database.py
 └── README.md
 ```
