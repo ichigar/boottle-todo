@@ -503,12 +503,16 @@ def delete_item(no):
 
 Poniéndolo todo junto. Crea una ruta `@get('/') que será el punto de entrada a la aplicación.
 
-En dicha página se mostrará una tabla con la información de todas las tareas:
+En dicha página se mostrará al principio un formulario para añadir una nueva tarea y a continuación, una tabla con la información de todas las tareas:
 * En la primera columna se mostrará el número de la tarea.
 * En la segunda columna se mostrará el nombre de la tarea.
 * En la tercera columna se mostrará el estado de la tarea (`pendiente` o `finalizada`).
 * En la cuarta columna se mostrará un botón para editar la tarea. Al hacer click en él se redirigirá a la página de edición de la tarea.
 * En la quinta columna se mostrará un botón para borrar la tarea. Al hacer click en él se redirigirá a la página de confirmación de borrado de la tarea.
+
+Debería tener una apariencia similar a:
+
+![mockup página inicial](imgs/mockup-4.2.png)
 
 Puedes ver una posible solución en la rama `actividad-4-2`.
 
