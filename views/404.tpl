@@ -10,6 +10,6 @@
 <body>
     <h1>Parece que se ha producido un error</h1>
     <h2>el servidor retorno un error '{{e}}'</h2>  
-    <p>En el <a href="/" >siguiente enlace</a> podrás acceder a la página de inicio</p> 
+    <p>En el <a href="/todo" >siguiente enlace</a> podrás acceder a la página de inicio</p> 
 </body>
 </html>
