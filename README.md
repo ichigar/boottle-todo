@@ -643,7 +643,8 @@ En el caso anterior devolvemos el contenido estático `404.html` que se encuentr
 </body>
 </html>
 ```
-
+## Lesson 6. Organizando el código
+ 
 ## Recursos
 
 * [Bottle - Web oficial del proyecto](http://bottlepy.org/)
