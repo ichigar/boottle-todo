@@ -80,6 +80,10 @@ def delete_item(no):
 
     return redirect('/todo')
 
+@get('/favicon.ico')
+def about():
+    return static_file('favicon.ico', root='static')
+
 @get('/about')
 def about():
     return static_file('about.html', root='static') 
