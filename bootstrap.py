@@ -1,5 +1,5 @@
 from config.create_database import create_database
-from config.config import db_file
+from config.config import DATABASE
 
 if __name__ == '__main__':
-    create_database(db_file)
+    create_database(DATABASE)

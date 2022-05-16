@@ -90,8 +90,6 @@ Hit Ctrl-C to quit.
 
 Y a continuación introducimos en el navegador la URL [http://localhost:8080/hello/world](http://localhost:8080/hello/world).
 
-## Lesson2. Configuración inicial de la aplicación
-
 ### Creando la base de datos
 Empezamos creando la base de datos. Para ello creamos en la subcarpeta `config` un fichero con el nombre `create_database.py` con el siguiente contenido:
 
@@ -106,15 +104,19 @@ def create_database(db_file):
     conn.execute("INSERT INTO todo (task,status) VALUES ('Choose your favorite WSGI-Framework',0)")
     conn.commit()
 ```
+Creamos en la carpeta `config`también un fichero `config.py`en el que iremos almacenando los parámetros de configuración de la aplicación. De momento guardaremos el nombre de la base de datas en la variable `DATABASE`:
 
+```python
+DATABASE = 'todo.db'
+```
 Creamos en la carpeta inicial del proyecto un fichero `bootstrap.py` con el siguiente contenido:
 
 ```python
 from config.create_database import create_database
+from config.config import DATABASE
 
 if __name__ == '__main__':
-    db_file = 'todo.db'
-    create_database(db_file)
+    create_database(DATABASE)
 ```
 
 Solo se debería ejecutar una vez y es el encargado de crear la base de datos e insertar en la misma los datos iniciales.
@@ -134,10 +136,11 @@ el fichero `hello.py` ya no lo necesitamos, así que lo podemos eliminar:
 La estructura actual de nuestro proyecto debería ser:
 
 ```bash
-(.venv) $ tree
+(.venv) $ tree             
 .
 ├── bootstrap.py
 ├── config
+│   ├── config.py
 │   └── create_database.py
 └── README.md
 ```
@@ -306,7 +309,46 @@ def new_item_save():
   * `request.POST.save` es una cadena que contiene el valor `save` que se ha introducido en el botón de envío.
   * `request.POST.task` es una cadena que contiene el texto que el usuario ha introducido en el campo de entrada.
 
+### Los decoradores @get y @post
 
+Bottle incluye los decoradores @get y @post para indicar que se trata de una ruta de tipo `GET` o `POST` respectivamente. Podemos sustituir:
+
+```python 
+@route('/new)
+...
+@route('/new', method='POST')
+...
+```
+Por:
+
+```python
+@get('/new')
+...
+@post('/new')
+```
+
+Para poder usarlos debemos importarlos:
+
+```python
+from bottle import route, run, template, request, get, post
+```
+
+### Redireccionando a otra página
+
+En la parte del código anterior en la que procesábamos el formulario al finalizar se devuelve una plantilla con un resumen de la operación realizada. En este caso podríamos tambien querer que se muestre la página con todas las tareas. Para ello tendríamos que redireccionar la página a la ruta `/todo`. Lo podemos hacer utilizando la función `redirect` de Bottle que previamente debemos importar:
+
+```python
+...
+from bottle import route, run, template, request, get, post, redirect
+...
+@post('/new')
+def new_item_save():
+    if request.POST.save:  # the user clicked the `save` button
+        ...
+        # se redirecciona a la página `/todo`
+        return redirect('/todo')
+...
+```
 ## Recursos
 
 * [Bottle - Web oficial del proyecto](http://bottlepy.org/)
