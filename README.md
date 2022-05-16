@@ -356,7 +356,7 @@ Hemos visto las operaciones de listar y añadir. Otra de las operaciones típica
 
 ### Editando
 
-Empezamos creando una ruta para mostrar el formulario de edición:
+Empezamos creando una ruta para mostrar el formulario de edición. Añadimos a `main.py`:
 
 ```python
 ...
@@ -442,6 +442,78 @@ Puedes ver una posible solución en la rama `actividad-4-1`.
 
 ```bash
 $ git switch actividad-4.1
+```
+
+### Eliminado una tarea
+
+Creamos una ruta para mostrar un formulario de confirmación de eliminación de una tarea. Añadimos a `main.py`:
+
+```python
+@get('/delete/<no:int>')
+def delete_item(no):
+    conn = sqlite3.connect('todo.db')
+    c = conn.cursor()
+    c.execute("SELECT task FROM todo WHERE id LIKE ?", (str(no),))
+    cur_data = c.fetchone()
+
+    return template('delete_task', old=cur_data, no=no)
+```
+
+Le pasamos a la plantilla el nombre de la tarea para que se muestre en el formulario de confirmación.
+
+La plantilla (`views/delete_task.tpl`) será la siguiente:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Borrar tarea</title>
+</head>
+<body>
+    <p>Borrar tarea con ID = {{no}}</p>
+    <form action="/delete/{{no}}" method="POST">
+      <p>Hac click para confirmar que deseas eliminar la tarea: </p>
+      <p><b>{{old[0]}}</b></p>
+      
+      <input type="submit" name="delete" value="Borrar">
+      <input type="submit" name="cancel" value="Cancelar">
+    </form>   
+</body>
+</html>
+```
+
+Para procesar el formulario creamos una ruta `@post` que se encargará de eliminar la tarea en caso de haber confirmado la eliminación.
+
+```python
+@post('/delete/<no:int>')
+def delete_item(no):
+    if request.POST.delete:
+        conn = sqlite3.connect(DATABASE)
+        c = conn.cursor()
+        c.execute("DELETE FROM todo WHERE id LIKE ?", str(no))
+        conn.commit()
+        c.close()
+
+    return redirect('/todo')
+```
+### Actividad 4.2.
+
+Poniéndolo todo junto. Crea una ruta `@get('/') que será el punto de entrada a la aplicación.
+
+En dicha página se mostrará una tabla con la información de todas las tareas:
+* En la primera columna se mostrará el número de la tarea.
+* En la segunda columna se mostrará el nombre de la tarea.
+* En la tercera columna se mostrará el estado de la tarea (`pendiente` o `finalizada`).
+* En la cuarta columna se mostrará un botón para editar la tarea. Al hacer click en él se redirigirá a la página de edición de la tarea.
+* En la quinta columna se mostrará un botón para borrar la tarea. Al hacer click en él se redirigirá a la página de confirmación de borrado de la tarea.
+
+Puedes ver una posible solución en la rama `actividad-4-2`.
+
+```bash
+$ git switch actividad-4.2
 ```
 
 
