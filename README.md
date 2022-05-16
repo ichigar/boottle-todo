@@ -349,6 +349,95 @@ def new_item_save():
         return redirect('/todo')
 ...
 ```
+
+## Lesson 4. Editando y borrando
+
+Hemos visto las operaciones de listar y añadir. Otra de las operaciones típicas a realizar es editar. Vamos a añadir a nuestra aplicación la posibilidad de modificar una de las tareas ya insertadas en la base de datos.
+
+### Editando
+
+Empezamos creando una ruta para mostrar el formulario de edición:
+
+```python
+...
+@get('/edit/<no:int>')
+def edit_item(no):
+    conn = sqlite3.connect('todo.db')
+    c = conn.cursor()
+    c.execute("SELECT task FROM todo WHERE id = ?", (no,))
+    cur_data = c.fetchone()
+    return template('edit_task', old=cur_data, no=no)
+...
+```
+
+En la ruta pasaremos la operación y, como parámetro, el número de la tarea que queremos editar.
+
+```python
+<no:int>
+```
+
+* '<...>' : indica que esa parte de la ruta será un parámetro.
+* ':int' : indica que ese parámetro es un número de tipo entero.
+* 'no' : es el nombre del parámetro.
+
+La función obtendrá los datos actuales de la tarea que queremos editar y se los pasará a la plantilla junto con el número de la tarea.
+
+Necesitaremos una plantilla que se encargue de mostrar el formulario de edición de una tarea. Para ello crearemos un fichero `edit_task.tpl` con el siguiente contenido:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Tarea</title>
+</head>
+<body>
+    <p>Editar la tarea número = {{no}}</p>
+    <form action="/edit/{{no}}" method="POST">
+      <input type="text" name="task" value="{{old[0]}}" size="100" maxlength="100">
+      <select name="status">
+        <option>open</option>
+        <option>closed</option>
+      </select>
+      <br>
+      <input type="submit" name="save" value="save">
+    </form>   
+</body>
+</html>
+```
+
+Para comprobar que se muestra correctamente podemos acceder a la dirección `http://localhost:8080/edit/1` y ver que se muestra el formulario de edición para la tarea número 1.
+
+Para procesar el formulario creamos una ruta `@post` que se encargará de almacenar en la base de datos los cambios realizados en la tarea.
+
+```python
+...
+@post('/edit/<no:int>')
+def edit_item(no):
+
+    if request.POST.save:
+        edit = request.POST.task.strip()
+        status = request.POST.status.strip()
+
+        if status == 'pendiente':
+            status = 1
+        else:
+            status = 0
+
+        conn = sqlite3.connect(DATABASE)
+        c = conn.cursor()
+        c.execute("UPDATE todo SET task = ?, status = ? WHERE id LIKE ?", (edit, status, no))
+        conn.commit()
+
+        return redirect('/todo')
+```
+
+### Actividad 4.1.
+
+Con los pasos anteriores el formulario el nombre de la tarea tal y cómo está guardadad en la base de datos, pero el estado que muestra no es el almacenado en la base de datos. Haz las modificaciones necesarias para que el estado se muestre correctamente.
+
 ## Recursos
 
 * [Bottle - Web oficial del proyecto](http://bottlepy.org/)
