@@ -520,6 +520,11 @@ Puedes ver una posible solución en la rama `actividad-4-2`.
 $ git switch actividad-4.2
 ```
 
+## Lesson5. Mostrando contenido estático
+
+Hasta ahora hemos creado rutas para mostrar páginas dinámicas, pero nuestra web también contendrá contenido estático como una página de bienvenida o una página de error; imágenes, CSS, etc.
+
+Cuando en las plantillas insertemos referencias a contenido estático **Bottle** ha de saber como acceder al mismo
 
 ## Recursos
 
