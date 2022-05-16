@@ -31,12 +31,12 @@ def new_item_save():
         return redirect('/todo')
 
 @get('/edit/<no:int>')
-def edit_item(no):
+def edit_item_form(no):
     conn = sqlite3.connect(DATABASE)
     c = conn.cursor()
     c.execute("SELECT task FROM todo WHERE id = ?", (no,))
     cur_data = c.fetchone()
-    print(cur_data)
+    c.close()
     return template('edit_task', old=cur_data, no=no)
 
 @post('/edit/<no:int>')
@@ -55,8 +55,31 @@ def edit_item(no):
         c = conn.cursor()
         c.execute("UPDATE todo SET task = ?, status = ? WHERE id LIKE ?", (edit, status, no))
         conn.commit()
+        c.close()
 
         return redirect('/todo')
-       
+
+@get('/delete/<no:int>')
+def delete_item_form(no):
+    conn = sqlite3.connect('todo.db')
+    c = conn.cursor()
+    c.execute("SELECT task FROM todo WHERE id LIKE ?", str(no))
+    cur_data = c.fetchone()
+    c.close()
+
+    return template('delete_task', old=cur_data, no=no)
+
+@post('/delete/<no:int>')
+def delete_item(no):
+    if request.POST.delete:
+        conn = sqlite3.connect(DATABASE)
+        c = conn.cursor()
+        c.execute("DELETE FROM todo WHERE id LIKE ?", str(no))
+        conn.commit()
+        c.close()
+
+    return redirect('/todo')
+
+      
 if __name__ == '__main__':
     run(host='localhost', port=8080, debug=True, reloader=True)
