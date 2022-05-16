@@ -34,7 +34,7 @@ def new_item_save():
 def edit_item(no):
     conn = sqlite3.connect(DATABASE)
     c = conn.cursor()
-    c.execute("SELECT task FROM todo WHERE id = ?", (no,))
+    c.execute("SELECT task, status FROM todo WHERE id = ?", (no,))
     cur_data = c.fetchone()
     print(cur_data)
     return template('edit_task', old=cur_data, no=no)

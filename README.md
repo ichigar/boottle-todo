@@ -438,11 +438,47 @@ def edit_item(no):
 
 Con los pasos anteriores el formulario el nombre de la tarea tal y cómo está guardadad en la base de datos, pero el estado que muestra no es el almacenado en la base de datos. Haz las modificaciones necesarias para que el estado se muestre correctamente.
 
-Puedes ver una posible solución en la rama `actividad-4-1`.
+Solución:
 
-```bash
-$ git switch actividad-4.1
+Primero hemos de recuperar el estado de la tarea de la base de datos.
+
+```python
+@get('/edit/<no:int>')
+def edit_item(no):
+    ...
+    c.execute("SELECT task, status FROM todo WHERE id = ?", (no,))
+    ...
 ```
+
+Y en la plantilla hemos de añadir el atributo `selected` a la opción que muestra el estado de la tarea.
+
+```html
+<body>
+ 
+    <% 
+        sel_pte = sel_done = '' 
+        if old[1] == True:
+           sel_pte = 'selected'
+        else:
+            sel_done = 'selected'
+        end
+    %>
+    <form action="/edit/{{no}}" method="POST">
+      <input type="text" name="task" value="{{old[0]}}" size="100" maxlength="100">
+      <select name="status">
+        
+        <option {{sel_pte}}>pendiente</option>
+        <option {{sel_done}}>finalizada</option>
+      </select>
+      <br>
+      <input type="submit" name="save" value="save">
+    </form>   
+</body>
+```
+
+De esta forma se muestra correctamente seleccionado el estado actual de la tarea.
+
+
 
 
 ## Recursos
