@@ -1,11 +1,11 @@
 import sqlite3
 from bottle import route, run, template, request
-from config.config import db_file
+from config.config import DATABASE
 
 @route('/todo')
 @route('/my_todo_list')
 def todo_list():
-    conn = sqlite3.connect(db_file)
+    conn = sqlite3.connect(DATABASE)
     c = conn.cursor()
     c.execute("SELECT id, task FROM todo WHERE status LIKE '1'")
     result = c.fetchall()
@@ -20,7 +20,7 @@ def new_item_form():
 def new_item_save():
     if request.POST.save:  # the user clicked the `save` button
         new = request.POST.task.strip()    # get the task from the form
-        conn = sqlite3.connect('todo.db')
+        conn = sqlite3.connect(DATABASE)
         c = conn.cursor()
 
         c.execute("INSERT INTO todo (task,status) VALUES (?,?)", (new,1))

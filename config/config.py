@@ -1,1 +1,1 @@
-db_file = 'todo.db'
+DATABASE = 'todo.db'
