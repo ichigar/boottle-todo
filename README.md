@@ -438,6 +438,13 @@ def edit_item(no):
 
 Con los pasos anteriores el formulario el nombre de la tarea tal y cómo está guardadad en la base de datos, pero el estado que muestra no es el almacenado en la base de datos. Haz las modificaciones necesarias para que el estado se muestre correctamente.
 
+Puedes ver una posible solución en la rama `actividad-4-1`.
+
+```bash
+$ git switch actividad-4.1
+```
+
+
 ## Recursos
 
 * [Bottle - Web oficial del proyecto](http://bottlepy.org/)
