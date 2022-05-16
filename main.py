@@ -1,5 +1,5 @@
 import sqlite3
-from bottle import route, run, template, request
+from bottle import route, run, template, request, get, post
 from config.config import DATABASE
 
 @route('/todo')
@@ -12,11 +12,11 @@ def todo_list():
     output = template('make_table', rows=result)
     return output
 
-@route('/new')
+@get('/new')
 def new_item_form():
     return template('new_task')
 
-@route('/new', method='POST')
+@post('/new')
 def new_item_save():
     if request.POST.save:  # the user clicked the `save` button
         new = request.POST.task.strip()    # get the task from the form

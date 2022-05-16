@@ -309,6 +309,27 @@ def new_item_save():
   * `request.POST.save` es una cadena que contiene el valor `save` que se ha introducido en el botón de envío.
   * `request.POST.task` es una cadena que contiene el texto que el usuario ha introducido en el campo de entrada.
 
+Bottle incluye los decoradores @get y @post para indicar que se trata de una ruta de tipo `GET` o `POST` respectivamente. Podemos sustituir:
+
+```python 
+@route('/new)
+...
+@route('/new', method='POST')
+...
+```
+Por:
+
+```python
+@get('/new')
+...
+@post('/new')
+```
+
+Para poder usarlos debemos importarlos:
+
+```python
+from bottle import route, run, template, request, get, post
+```
 
 ## Recursos
 
