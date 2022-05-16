@@ -1,5 +1,5 @@
 import sqlite3
-from bottle import route, run, template, request, get, post
+from bottle import route, run, template, request, get, post, redirect
 from config.config import DATABASE
 
 @route('/todo')
@@ -29,7 +29,7 @@ def new_item_save():
         conn.commit()
         c.close()
         # se muestra el resultado de la operación
-        return '<p>La tarea se almacenó en la base de datos, El ID es %s</p>' % new_id
+        return redirect('/todo')
         
 if __name__ == '__main__':
     run(host='localhost', port=8080, debug=True, reloader=True)

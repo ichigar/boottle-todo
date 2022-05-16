@@ -309,6 +309,8 @@ def new_item_save():
   * `request.POST.save` es una cadena que contiene el valor `save` que se ha introducido en el botón de envío.
   * `request.POST.task` es una cadena que contiene el texto que el usuario ha introducido en el campo de entrada.
 
+### Los decoradores @get y @post
+
 Bottle incluye los decoradores @get y @post para indicar que se trata de una ruta de tipo `GET` o `POST` respectivamente. Podemos sustituir:
 
 ```python 
@@ -331,6 +333,22 @@ Para poder usarlos debemos importarlos:
 from bottle import route, run, template, request, get, post
 ```
 
+### Redireccionando a otra página
+
+En la parte del código anterior en la que procesábamos el formulario al finalizar se devuelve una plantilla con un resumen de la operación realizada. En este caso podríamos tambien querer que se muestre la página con todas las tareas. Para ello tendríamos que redireccionar la página a la ruta `/todo`. Lo podemos hacer utilizando la función `redirect` de Bottle que previamente debemos importar:
+
+```python
+...
+from bottle import route, run, template, request, get, post, redirect
+...
+@post('/new')
+def new_item_save():
+    if request.POST.save:  # the user clicked the `save` button
+        ...
+        # se redirecciona a la página `/todo`
+        return redirect('/todo')
+...
+```
 ## Recursos
 
 * [Bottle - Web oficial del proyecto](http://bottlepy.org/)
