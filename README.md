@@ -602,6 +602,24 @@ Si en la carpeta `static/css` insertamos un archivo con los estilos a aplicar ta
 ...
 ```
 
+### Mostrando el favicon
+
+Todos los navegadores buscan en la raíz del sitio un archivo `favicon.ico` para mostrar un icono en la pestaña del navegador. Por tanto, los navegadores solicitan cuando accedemos a [http://localhost:8080/](http://localhost:8080/) el archivo `favicon.ico` que se encuentra en la raíz del sitio.
+
+Para poder servirlo, buscamos o generamos el `favicon.ico`que nos interese y lo guardamos en la carpeta `static`.
+
+A continuación, en el fichero `main.py` añadimos la siguiente ruta:
+
+```python
+...
+@get('/favicon.ico')
+def about():
+    return static_file('favicon.ico', root='static')
+...
+```
+
+A partir de este momento, al acceder a cualquier página de nuestro sitio se mostrará en la pestaña del navegador dicho archivo.
+
 ### Personalizando la página de error 404
 
 Cuando en un servidor accedemos a una ruta que no existe se suele mostrar una página de error 404.
