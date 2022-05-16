@@ -1,5 +1,5 @@
 import sqlite3
-from bottle import route, run, template, request, get, post, redirect
+from bottle import route, run, template, request, get, post, redirect, static_file, error, response
 from config.config import DATABASE
 
 @route('/todo')
@@ -80,6 +80,24 @@ def delete_item(no):
 
     return redirect('/todo')
 
-      
+@get("/static/<filepath>")
+def html(filepath):
+    return static_file(filepath, root = "static")
+
+@get("/static/img/<filepath>")
+def img(filepath):
+    return static_file(filepath, root = "static/img")
+
+@get("/static/css/<filepath>")
+def css(filepath):
+    return static_file(filepath, root = "static/css")
+
+@get("/favicon.ico")
+def favicon():
+    return static_file("favicon.ico", root = "")
+
+@error(404)
+def error404(error):
+    return template('404', e=response.status_code)
 if __name__ == '__main__':
     run(host='localhost', port=8080, debug=True, reloader=True)
