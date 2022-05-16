@@ -524,7 +524,82 @@ $ git switch actividad-4.2
 
 Hasta ahora hemos creado rutas para mostrar páginas dinámicas, pero nuestra web también contendrá contenido estático como una página de bienvenida o una página de error; imágenes, CSS, etc.
 
-Cuando en las plantillas insertemos referencias a contenido estático **Bottle** ha de saber como acceder al mismo
+Igual que con el contenido dinámico, cuando queremos acceder directamente o desde las plantillas a contenido estático **Bottle** ha de saber como acceder al mismo.
+
+Paraestructurar mejor nuestro código podemos crear la carpeta `static` y usarla como base para las rutas estáticas. Si creamos endicha carpeta un archivo `about.html` con el siguiente contenido:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/miligram.css">
+    <title>Acerca de</title>
+</head>
+<body>
+  <h1>Acerca de</h1>
+  <p>Aplicación para gestión de tareas</p>
+</body>
+</html>
+
+Y queremos acceder al mismo desde la ruta `/about` primero importamos la función `static_file` de la librería `bottle`.
+
+```python
+...
+from bottle import route, run, template, request, get, post, redirect, static_file
+...
+```
+
+Y añadimos la siguiente ruta al fichero `main.py`:
+
+
+```python
+@get('/about')
+def about():
+    return static_file('about.html', root='static')
+```
+
+En la que indicamos que al acceder a dicha ruta se llamara a la función `static_file()` cuyo primer parámetro es el nombre del archivo que queremos mostrar y el segundo (`root`) es la ruta de la carpeta donde se encuentra.
+
+Si todo el contenido estático cuelga de la carpeta `static` y queremos que de manera genérica se pudiese acceder a cualquier archivo estático a partir de su ruta  lo podemos hacer añadiendo en `main.py` la siguiente ruta:
+
+```python
+...
+@get("/static/<filepath:path>")
+def html(filepath):
+    return static_file(filepath, root = "static")
+...
+
+Donde:
+* `filepath` es la ruta del nombre del archivo que queremos mostrar.
+* `path` lo reconoce Bottle como de tipo ruta a archivo
+```
+
+Así, si copiamos en la carpeta `static/img` una imagen de nobre `todo.png` podemos mostrala en la página `about.html` de la siguiente forma:
+
+```html
+...
+<h1>Acerca de</h1>
+<p>Aplicación para gestión de tareas</p>
+<img src="/static/img/todo.png" alt="Imagen TODO">
+...
+```
+
+Si en la carpeta `static/css` insertamos un archivo con los estilos a aplicar también bottle lo serviría al ser insertado en cualquier página o plantilla.
+
+```html
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/miligram.css">
+    <title>Acerca de</title>
+</head>
+...
+```
+
 
 ## Recursos
 
