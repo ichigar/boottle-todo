@@ -675,17 +675,20 @@ class Todo:
 
 Al constructor se le pasa el nombre de la base de datos y se encarga de almacenarlo.
 
-El método privado `__connect()` se encargará de establecer una conexión y devolverá un objeto `conn` con el que podremos interactuar con la base de datos.
+El método privado `__connect()` se encargará de establecer una conexión y devolverá un objeto `conn` para manejar la base de datos. Todas las futuras operaciones con la base de datos se deberán lleva a cabo con dicho objeto.
 
 A continuación iremos añadiendo todos los métodos para las diferentes consultas. 
 
 El método `select()` se encarga de devolver todos los registros de la tabla. Todas las consultas seguirán el mismo esquema:
 
-* Se crea un `cursor` que apunta a la tabla.
-* Sobre dicho cursor se ejecuta la consulta.
-* Se recuperan los datos de la consulta.
-* Al ser la base de datos transaccional tenemos que realizar un `commit()` para que se apliquen los cambios (en este caso no es necesario porque no se modifica la tabla sino que simplemente realizamos una consulta)
-* Por último cerramos la conección.
+* Se crea un `cursor` a partir de la conexión. Un cursor es como una localización temporal que almacena el resultado de las consultas.
+* Sobre dicho cursor se ejecuta la consulta con el método `execute()` al que se le pasa la consulta SQL.
+* Se recuperan los datos de la consulta. Existen varios métodos para ello: 
+    * `fetchall()` devuelve todos los registros de la consulta en forma de lista de tuplas
+    * `fetchone()` devuelve el primer registro de la consulta 
+
+* Al ser el cursor un apuntador temporal a la tabla tenemos que realizar un `commit()` sobre el objeto `conn` para que se apliquen los cambios (en este caso no es necesario porque no se modifica la tabla sino que simplemente realizamos una consulta)
+* Por último cerramos la conexión.
 * En este caso devolvemos el resultado de la consulta. Con el método `fetchall()` lo que se obtiene es una lista de t-uplas con todos los registros que cumplen en criterio de la  consulta.
 
 De la misma forma añadimos el resto de métodos para cada uno de los tipos de consulta que se realizan
