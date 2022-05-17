@@ -5,34 +5,38 @@ class Todo:
     
     def __connect(self):
         conn = sqlite3.connect(self.database)
-        self.conn = conn
-        c = conn.cursor()
-        return c
+        return conn
 
     
-    def tasks(self):
-        c = self.__connect()
+    def select(self):
+        conn = self.__connect()
+        c = conn.cursor()
         c.execute("SELECT id, task FROM todo WHERE status LIKE '1'")
         data = c.fetchall()
+        conn.commit()
         c.close()
         return data
     
-    def task(self, id):
-        c = self.__connect()
+    def get_task(self, id):
+        conn = self.__connect()
+        c = conn.cursor()
         c.execute("SELECT task FROM todo WHERE id LIKE ?", (id,))
         data = c.fetchone()
+        conn.commit()
         c.close()
         return data
     
-    def new_todo(self, task):
-        c = self.__connect()
+    def insert(self, task):
+        conn = self.__connect()
+        c = conn.cursor()
         c.execute("INSERT INTO todo (task, status) VALUES (?,?)", (task, 1))
-        self.conn.commit()
+        conn.commit()
         c.close()
         return True
     
-    def edit_todo(self, no, task, status):
-        c = self.__connect()
+    def update(self, no, task, status):
+        conn = self.__connect()
+        c = conn.cursor()
         c.execute("UPDATE todo SET task = ?, status = ? WHERE id LIKE ?", (task, status, no))
         self.conn.commit()
         c.close()
