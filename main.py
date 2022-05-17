@@ -8,8 +8,9 @@ todo = Todo(DATABASE) # Creamos objeto vinculado a la base de datos
 @route('/todo')
 @route('/my_todo_list')
 def todo_list():
-    return template('make_table', rows=todo.select())
-
+    rows = todo.select()
+    if rows != None:
+        return template('make_table', rows=rows)
 
 @get('/new')
 def new_task_form():
@@ -27,7 +28,8 @@ def new_task_save():
 @get('/edit/<no:int>')
 def edit_item_form(no):
     cur_data = todo.get_task(no)  # get the current data for the item we are editing
-    return template('edit_task', old=cur_data, no=no)
+    if cur_data != None:
+        return template('edit_task', old=cur_data, no=no)
 
 @post('/edit/<no:int>')
 def edit_item(no):
@@ -43,7 +45,9 @@ def edit_item(no):
 @get('/delete/<no:int>')
 def delete_item_form(no):
     cur_data = todo.get_task(no)  # get the current data for the item we are editing
-    return template('delete_task', old=cur_data, no=no)
+    if cur_data != None:
+        return template('delete_task', old=cur_data, no=no)
+
 
 @post('/delete/<no:int>')
 def delete_item(no):
