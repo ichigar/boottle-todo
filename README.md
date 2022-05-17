@@ -644,7 +644,153 @@ En el caso anterior devolvemos el contenido estático `404.html` que se encuentr
 </html>
 ```
 ## Lesson 6. Organizando el código
- 
+
+Actualmente nuestro progrma principal incluye para cada ruta operaciones que implican enviar o recuperar valores leidos, realizar consultas a la base de datos y llamadas para mostrar plantillas.
+
+Vamos a refactorizar un poco el código de forma que separemos las operaciones.
+
+Empezamos creando una clase para todas las operaciones sobre la base de datos. Creamos una carpeta de nombre `models` y dentro de ellas un fichero con el mismo nombre de la tabla sobre la que se realizan las operaciones: `todo.py` y en el insertamos:
+
+```python
+import sqlite3
+class Todo:
+    def __init__(self, database):
+        self.database = database
+    
+    def __connect(self):
+        conn = sqlite3.connect(self.database)
+        return conn
+
+    
+    def select(self):
+        conn = self.__connect()
+        c = conn.cursor()
+        c.execute("SELECT id, task FROM todo WHERE status LIKE '1'")
+        data = c.fetchall()
+        conn.commit()
+        c.close()
+        return data
+```
+
+Al constructor se le pasa el nombre de la base de datos y se encarga de almacenarlo.
+
+El método privado `__connect()` se encargará de establecer una conexión y devolverá un objeto `conn` con el que podremos interactuar con la base de datos.
+
+A continuación iremos añadiendo todos los métodos para las diferentes consultas. 
+
+El método `select()` se encarga de devolver todos los registros de la tabla. Todas las consultas seguirán el mismo esquema:
+
+* Se crea un `cursor` que apunta a la tabla.
+* Sobre dicho cursor se ejecuta la consulta.
+* Se recuperan los datos de la consulta.
+* Al ser la base de datos transaccional tenemos que realizar un `commit()` para que se apliquen los cambios (en este caso no es necesario porque no se modifica la tabla sino que simplemente realizamos una consulta)
+* Por último cerramos la conección.
+* En este caso devolvemos el resultado de la consulta. Con el método `fetchall()` lo que se obtiene es una lista de t-uplas con todos los registros que cumplen en criterio de la  consulta.
+
+De la misma forma añadimos el resto de métodos para cada uno de los tipos de consulta que se realizan
+
+```python
+    def get_task(self, no):
+        conn = self.__connect()
+        c = conn.cursor()
+        c.execute("SELECT task FROM todo WHERE id LIKE ?", (str(no),))
+        data = c.fetchone()
+        conn.commit()
+        c.close()
+        return data
+    
+    def insert_task(self, task):
+        conn = self.__connect()
+        c = conn.cursor()
+        c.execute("INSERT INTO todo (task, status) VALUES (?,?)", (task, 1))
+        conn.commit()
+        c.close()
+        return True
+    
+    def update(self, no, task, status):
+        conn = self.__connect()
+        c = conn.cursor()
+        c.execute("UPDATE todo SET task = ?, status = ? WHERE id LIKE ?", (task, status, no))
+        conn.commit()
+        c.close()
+        return True
+    
+    def delete(self, no):
+        conn = self.__connect()
+        c = conn.cursor()
+        c.execute("DELETE FROM todo WHERE id LIKE ?", str(no))
+        conn.commit()
+        c.close()
+        return True
+```
+
+En el fichero `main.py` modificamos los controladores para que utilicen los métodos para el acceso a la tabla que acabamos de crear.
+
+Ya no usaremos `sqlite3` en este fichero por lo que podemos quitarlo del `import`
+
+Para poder usar la clase debemos importarla. Lo hacemosen la parte del principio del fichero y creamos un objeto de dicha clase que se utilizará en cada uno de los contralodores que hagan consultas:
+
+```python
+...
+from config.config import DATABASE
+from models.todo import Todo
+
+todo = Todo(DATABASE) # Creamos objeto vinculado a la base de datos
+
+
+@route('/todo')
+...
+```
+
+Se modifican los controladores en los que se realizan consultas:
+
+```python
+def todo_list():
+    return template('make_table', rows=todo.select())
+
+
+@get('/new')
+def new_task_form():
+    return template('new_task')
+
+@post('/new')
+def new_task_save():
+    if request.POST.save:  # the user clicked the `save` button
+        new = request.POST.task.strip()    # get the task from the form
+        
+        todo.insert_task(new)
+
+        return redirect('/todo')
+
+@get('/edit/<no:int>')
+def edit_item_form(no):
+    cur_data = todo.get_task(no)  # get the current data for the item we are editing
+    return template('edit_task', old=cur_data, no=no)
+
+@post('/edit/<no:int>')
+def edit_item(no):
+
+    if request.POST.save:
+        # get the values of the form
+        edit = request.POST.task.strip()
+        status = request.POST.status.strip()
+
+        todo.update(no, edit, status)
+        
+        return redirect('/todo')
+
+@get('/delete/<no:int>')
+def delete_item_form(no):
+    cur_data = todo.get_task(no)  # get the current data for the item we are editing
+    return template('delete_task', old=cur_data, no=no)
+
+@post('/delete/<no:int>')
+def delete_item(no):
+    if request.POST.delete:
+        todo.delete(no)
+
+    return redirect('/todo')
+```
 ## Recursos
 
 * [Bottle - Web oficial del proyecto](http://bottlepy.org/)
