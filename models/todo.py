@@ -1,4 +1,5 @@
 import sqlite3
+
 class Todo:
     def __init__(self, database):
         self.database = database
