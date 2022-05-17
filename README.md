@@ -643,6 +643,7 @@ En el caso anterior devolvemos el contenido estático `404.html` que se encuentr
 </body>
 </html>
 ```
+
 ## Lesson 6. Organizando el código
 
 Actualmente nuestro progrma principal incluye para cada ruta operaciones que implican enviar o recuperar valores leidos, realizar consultas a la base de datos y llamadas para mostrar plantillas.
@@ -791,6 +792,10 @@ def delete_item(no):
 
     return redirect('/todo')
 ```
+
+El resultado hasta este punto lo tienes en la rama `lesson6` del repositorio den **Github** en el que se aloja este proyecto. Puedes obtenerlo clonando el repositorio y accediendo a la rama `lesson6`
+
+
 ## Recursos
 
 * [Bottle - Web oficial del proyecto](http://bottlepy.org/)
