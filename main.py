@@ -1,15 +1,14 @@
-import sqlite3
 from bottle import route, run, template, request, get, post, redirect, static_file, error, response
 from config.config import DATABASE
 from models.todo import Todo
 
-todo = Todo(DATABASE)
+todo = Todo(DATABASE) # Creamos objeto vinculado a la base de datos
 
 
 @route('/todo')
 @route('/my_todo_list')
 def todo_list():
-    return template('make_table', rows=todo.tasks())
+    return template('make_table', rows=todo.select())
 
 
 @get('/new')
@@ -20,14 +19,14 @@ def new_task_form():
 def new_task_save():
     if request.POST.save:  # the user clicked the `save` button
         new = request.POST.task.strip()    # get the task from the form
-        todo.new(new)
+        todo.insert_task(new)
 
         # se muestra el resultado de la operación
         return redirect('/todo')
 
 @get('/edit/<no:int>')
 def edit_item_form(no):
-    cur_data = todo.task(no)  # get the current data for the item we are editing
+    cur_data = todo.get_task(no)  # get the current data for the item we are editing
     return template('edit_task', old=cur_data, no=no)
 
 @post('/edit/<no:int>')
@@ -37,27 +36,19 @@ def edit_item(no):
         edit = request.POST.task.strip()
         status = request.POST.status.strip()
 
-        if status == 'pendiente':
-            status = 1
-        else:
-            status = 0
-        todo.edit_todo(no, edit, status)
+        todo.update(no, edit, status)
         
         return redirect('/todo')
 
 @get('/delete/<no:int>')
 def delete_item_form(no):
-    cur_data = todo.task(no)  # get the current data for the item we are editing
+    cur_data = todo.get_task(no)  # get the current data for the item we are editing
     return template('delete_task', old=cur_data, no=no)
 
 @post('/delete/<no:int>')
 def delete_item(no):
     if request.POST.delete:
-        conn = sqlite3.connect(DATABASE)
-        c = conn.cursor()
-        c.execute("DELETE FROM todo WHERE id LIKE ?", str(no))
-        conn.commit()
-        c.close()
+        todo.delete(no)
 
     return redirect('/todo')
 
