@@ -12,7 +12,7 @@ class Todo:
     def select(self):
         conn = self.__connect()
         c = conn.cursor()
-        c.execute("SELECT id, task FROM todo WHERE status LIKE '1'")
+        c.execute("SELECT * FROM todo")
         data = c.fetchall()
         conn.commit()
         c.close()
