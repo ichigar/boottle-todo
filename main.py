@@ -4,6 +4,9 @@ from models.todo import Todo
 
 todo = Todo(DATABASE) # Creamos objeto vinculado a la base de datos
 
+@get('/')
+def index():
+    return template('index', rows=todo.select())
 
 @route('/todo')
 @route('/my_todo_list')
