@@ -4,6 +4,11 @@ from models.todo import Todo
 
 todo = Todo(DATABASE) # Creamos objeto vinculado a la base de datos
 
+@get('/')
+def index():
+    rows=todo.select()
+    print(rows)
+    return template('index', rows=todo.select())
 
 @route('/todo')
 @route('/my_todo_list')
@@ -22,7 +27,7 @@ def new_task_save():
         todo.insert_task(new)
 
         # se muestra el resultado de la operación
-        return redirect('/todo')
+        return redirect('/')
 
 @get('/edit/<no:int>')
 def edit_item_form(no):
@@ -38,7 +43,7 @@ def edit_item(no):
 
         todo.update(no, edit, status)
         
-        return redirect('/todo')
+        return redirect('/')
 
 @get('/delete/<no:int>')
 def delete_item_form(no):
@@ -50,7 +55,7 @@ def delete_item(no):
     if request.POST.delete:
         todo.delete(no)
 
-    return redirect('/todo')
+    return redirect('/')
 
 @get('/favicon.ico')
 def about():
