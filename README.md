@@ -17,7 +17,12 @@ $ git switch lesson1
 $ git switch lesson2
 ...
 ```
-## Lesson1. Empezando con bootle
+
+## Índice de contenidos
+
+* [Lesson 1. Empezando con bottle](doc/lesson1.md)
+
+## Lesson1. Empezando con bottle
 
 ### Creando el entorno virtual de desarrollo
 Para empezar a usar bottle creamos un entorno virtual de desarrollo.
