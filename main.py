@@ -9,6 +9,7 @@ def index():
     c = conn.cursor()
     c.execute("SELECT * FROM todo")
     result = c.fetchall()
+    c.close()
     return template('index', rows=result)
 
 @route('/todo')
@@ -18,6 +19,7 @@ def todo_list():
     c = conn.cursor()
     c.execute("SELECT id, task FROM todo WHERE status LIKE '1'")
     result = c.fetchall()
+    c.close()
     output = template('make_table', rows=result)
     return output
 
