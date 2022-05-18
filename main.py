@@ -2,6 +2,15 @@ import sqlite3
 from bottle import route, run, template, request, get, post, redirect
 from config.config import DATABASE
 
+@get('/')
+def index():
+    conn = sqlite3.connect(DATABASE)
+    c = conn.cursor()
+    c.execute("SELECT * FROM todo")
+    result = c.fetchall()
+    output = template('index', rows=result)
+    return output
+
 @route('/todo')
 @route('/my_todo_list')
 def todo_list():
@@ -28,7 +37,7 @@ def new_item_save():
         conn.commit()
         c.close()
         # se muestra el resultado de la operación
-        return redirect('/todo')
+        return redirect('/')
 
 @get('/edit/<no:int>')
 def edit_item_form(no):
@@ -57,7 +66,7 @@ def edit_item(no):
         conn.commit()
         c.close()
 
-        return redirect('/todo')
+        return redirect('/')
 
 @get('/delete/<no:int>')
 def delete_item_form(no):
@@ -78,7 +87,7 @@ def delete_item(no):
         conn.commit()
         c.close()
 
-    return redirect('/todo')
+    return redirect('/')
 
       
 if __name__ == '__main__':
