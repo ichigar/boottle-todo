@@ -54,6 +54,7 @@ Para estructurar mejor nuestro código podemos crear la carpeta `static` y usarl
   <p>Aplicación para gestión de tareas</p>
 </body>
 </html>
+```
 
 Y queremos acceder al mismo desde la ruta `/about` primero importamos la función `static_file` de la librería `bottle`.
 
@@ -82,11 +83,12 @@ Si todo el contenido estático cuelga de la carpeta `static` y queremos que de m
 def html(filepath):
     return static_file(filepath, root = "static")
 ...
+```
 
 Donde:
 * `filepath` es la ruta del nombre del archivo que queremos mostrar.
 * `path` lo reconoce Bottle como de tipo ruta a archivo
-```
+
 
 Así, si copiamos en la carpeta `static/img` una imagen de nobre `todo.png` podemos mostrala en la página `about.html` de la siguiente forma:
 
