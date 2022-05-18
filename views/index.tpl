@@ -1,8 +1,12 @@
-% include('header.tpl', title = "TODO app")
-<p>Añadir una nueva tarea:</p>
-<form action="/new" method="POST">
-<input type="text" size="65" maxlength="100" name="task">
-<input type="submit" name="save" value="Guardar">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Borrar tarea</title>
+</head>
+<body>
 </form>
 <p>Las tareas actuales son las siguientes:</p>
     <table border="1">
@@ -38,3 +42,5 @@
             </tr>
         %end
     </table>
+</body>
+</html>
