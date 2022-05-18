@@ -7,7 +7,6 @@ todo = Todo(DATABASE) # Creamos objeto vinculado a la base de datos
 @get('/')
 def index():
     rows=todo.select()
-    print(rows)
     return template('index', rows=todo.select())
 
 @route('/todo')
