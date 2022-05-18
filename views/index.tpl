@@ -7,7 +7,11 @@
     <title>Borrar tarea</title>
 </head>
 <body>
-</form>
+    <p>Añadir una nueva tarea:</p>
+    <form action="/new" method="POST">
+    <input type="text" size="65" maxlength="100" name="task">
+    <input type="submit" name="save" value="Guardar">
+    </form>
 <p>Las tareas actuales son las siguientes:</p>
     <table border="1">
         <tr>
