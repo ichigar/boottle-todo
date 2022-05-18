@@ -2,6 +2,15 @@ import sqlite3
 from bottle import route, run, template, request, get, post, redirect, static_file, error, response
 from config.config import DATABASE
 
+
+@get('/')
+def index():
+    conn = sqlite3.connect(DATABASE)
+    c = conn.cursor()
+    c.execute("SELECT * FROM todo")
+    result = c.fetchall()
+    return template('index', rows=result)
+
 @route('/todo')
 @route('/my_todo_list')
 def todo_list():
