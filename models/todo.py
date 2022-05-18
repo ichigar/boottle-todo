@@ -8,6 +8,13 @@ class Todo:
         conn = sqlite3.connect(self.database)
         return conn
 
+    def create(self):
+        conn = self.__connect()
+        c = conn.cursor()
+        c.execute(conn.execute("CREATE TABLE todo (id INTEGER PRIMARY KEY, task char(100) NOT NULL, status bool NOT NULL)"))
+        conn.commit()
+        c.close()
+        return True
     
     def select(self):
         conn = self.__connect()
