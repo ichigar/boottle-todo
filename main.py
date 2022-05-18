@@ -39,7 +39,7 @@ def new_item_save():
         conn.commit()
         c.close()
         # se muestra el resultado de la operación
-        return redirect('/todo')
+        return redirect('/')
 
 @get('/edit/<no:int>')
 def edit_item_form(no):
@@ -68,7 +68,7 @@ def edit_item(no):
         conn.commit()
         c.close()
 
-        return redirect('/todo')
+        return redirect('/')
 
 @get('/delete/<no:int>')
 def delete_item_form(no):
@@ -89,7 +89,7 @@ def delete_item(no):
         conn.commit()
         c.close()
 
-    return redirect('/todo')
+    return redirect('/')
 
 @get('/favicon.ico')
 def about():
