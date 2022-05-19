@@ -1,6 +1,7 @@
 from bottle import route, run, template, request, get, post, redirect, static_file, error, response
 from config.config import DATABASE
 from models.todo import Todo
+import json
 
 todo = Todo(DATABASE) # Creamos objeto vinculado a la base de datos
 
@@ -21,8 +22,9 @@ def new_task_form():
 
 @post('/new')
 def new_task_save():
-    if request.POST.save:  # the user clicked the `save` button
-        new = request.POST.task.strip()    # get the task from the form
+    post_data = dict(request.forms)
+    if post_data['save']:  # the user clicked the `save` button
+        new = post_data['task'].strip()    # get the task from the form
         todo.insert_task(new)
 
         # se muestra el resultado de la operación
@@ -35,14 +37,16 @@ def edit_item_form(no):
 
 @post('/edit/<no:int>')
 def edit_item(no):
+    post_data = dict(request.forms)
 
-    if request.POST.save:
-        edit = request.POST.task.strip()
-        status = request.POST.status.strip()
+    if post_data['save']:
+        edit = post_data['task'].strip()
+        status = post_data['status'].strip()
+        
 
         todo.update(no, edit, status)
         
-        return redirect('/')
+    return redirect('/')
 
 @get('/delete/<no:int>')
 def delete_item_form(no):
@@ -51,7 +55,8 @@ def delete_item_form(no):
 
 @post('/delete/<no:int>')
 def delete_item(no):
-    if request.POST.delete:
+    post_data = dict(request.forms)
+    if post_data['delete']:
         todo.delete(no)
 
     return redirect('/')
