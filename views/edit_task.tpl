@@ -10,6 +10,7 @@
       </select>
       <br>
       <input type="submit" name="save" value="save">
+      <input type="submit" name="cancel" value="Cancelar">
     </form>   
 
 % include('footer.tpl')
