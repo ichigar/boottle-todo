@@ -57,3 +57,19 @@ class Todo:
         conn.commit()
         c.close()
         return True
+    
+    def open(self, no):
+        conn = self.__connect()
+        c = conn.cursor()
+        c.execute("UPDATE todo SET status = 1 WHERE id LIKE ?", (no))
+        conn.commit()
+        c.close()
+        return True
+    
+    def close(self, no):
+        conn = self.__connect()
+        c = conn.cursor()
+        c.execute("UPDATE todo SET status = 0 WHERE id LIKE ?", (no))
+        conn.commit()
+        c.close()
+        return True
