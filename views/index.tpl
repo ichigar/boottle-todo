@@ -35,11 +35,11 @@
         </td>
         <td>
             %if row[2] == 0:
-                <form action="/open/{{row[0]}}" method="GET">
+                <form action="/open/{{row[0]}}" method="POST">
                     <input type="submit" name="open" value="Abrir">
                 </form>
             %else:
-                <form action="/close/{{row[0]}}" method="GET">
+                <form action="/close/{{row[0]}}" method="POST">
                     <input type="submit" name="close" value="Cerrar">
                 </form>
             %end
