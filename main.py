@@ -23,7 +23,7 @@ def new_task_form():
 @post('/new')
 def new_task_save():
     post_data = dict(request.forms)
-    if post_data['save']:  # the user clicked the `save` button
+    if 'save' in post_data.keys():  # the user clicked the `save` button
         new = post_data['task'].strip()    # get the task from the form
         todo.insert_task(new)
 
@@ -39,7 +39,7 @@ def edit_item_form(no):
 def edit_item(no):
     post_data = dict(request.forms)
 
-    if post_data['save']:
+    if 'save' in post_data.keys():
         edit = post_data['task'].strip()
         status = post_data['status'].strip()
         
@@ -56,7 +56,7 @@ def delete_item_form(no):
 @post('/delete/<no:int>')
 def delete_item(no):
     post_data = dict(request.forms)
-    if post_data['delete']:
+    if 'delete' in post_data.keys():
         todo.delete(no)
 
     return redirect('/')
