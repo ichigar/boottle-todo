@@ -60,6 +60,22 @@ def delete_item(no):
 
     return redirect('/')
 
+@post('/open/<no:int>')
+def open_task(no):
+    
+    if request.POST.open:
+        todo.open(no)
+
+    return redirect('/')
+
+@post('/close/<no:int>')
+def close_task(no):
+    
+    if request.POST.close:
+        todo.close(no)
+
+    return redirect('/')
+
 @get('/favicon.ico')
 def favicon():
     return static_file('favicon.ico', root='static')
