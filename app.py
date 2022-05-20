@@ -1,7 +1,7 @@
+import bottle
 from bottle import route, run, template, request, get, post, redirect, static_file, error, response
 from config.config import DATABASE
 from models.todo import Todo
-import json
 
 todo = Todo(DATABASE) # Creamos objeto vinculado a la base de datos
 
@@ -79,3 +79,5 @@ def error404(error):
 
 if __name__ == '__main__':
     run(host='localhost', port=8080, debug=True, reloader=True)
+
+app = bottle.default_app()
