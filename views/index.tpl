@@ -1,7 +1,7 @@
 % include('header.tpl', title = "TODO app")
 <p>Añadir una nueva tarea:</p>
 <form action="/new" method="POST">
-    <input type="text" size="65" maxlength="100" name="task">
+    <input type="text" size="50" maxlength="100" name="task">
     <input type="submit" name="save" value="Guardar">
 </form>
 <p>Las tareas actuales son las siguientes:</p>
