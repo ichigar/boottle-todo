@@ -62,7 +62,7 @@ def delete_item(no):
     return redirect('/')
 
 @get('/favicon.ico')
-def about():
+def favicon():
     return static_file('favicon.ico', root='static')
 
 @get('/about')
