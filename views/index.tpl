@@ -10,7 +10,7 @@
         <th>ID</th>
         <th>Tarea</th>
         <th>Estado</th>
-        <th colspan="2">Acciones</th>
+        <th colspan="3">Acciones</th>
     </tr>
     %for row in rows:
     <tr>
@@ -32,6 +32,17 @@
             <form action="/delete/{{row[0]}}" method="GET">
                 <input type="submit" name="delete" value="Borrar">
             </form>
+        </td>
+        <td>
+            %if row[2] == 0:
+                <form action="/open/{{row[0]}}" method="GET">
+                    <input type="submit" name="open" value="Abrir">
+                </form>
+            %else:
+                <form action="/close/{{row[0]}}" method="GET">
+                    <input type="submit" name="close" value="Cerrar">
+                </form>
+            %end
         </td>
     </tr>
     %end
