@@ -1,13 +1,20 @@
 import os
 import bottle
-from bottle import route, run, template, request, get, post, redirect, static_file, error, response
+from bottle import route, run, template, request, get, post, redirect, static_file, error, auth_basic
 from config.config import DATABASE
 from models.todo import Todo
 
 
 todo = Todo(DATABASE) # Creamos objeto vinculado a la base de datos
 
+def is_authenticated_user(user, password):
+    if user == "ivan" and password=="daw1234":
+        return True
+    return False
+        
+
 @get('/')
+@auth_basic(is_authenticated_user)
 def index():
     rows=todo.select()
     return template('index', rows=todo.select())
