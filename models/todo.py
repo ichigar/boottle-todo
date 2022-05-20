@@ -61,7 +61,7 @@ class Todo:
     def open(self, no):
         conn = self.__connect()
         c = conn.cursor()
-        c.execute("UPDATE todo SET status = 1 WHERE id LIKE ?", (no))
+        c.execute("UPDATE todo SET status = 1 WHERE id LIKE ?", (str(no),))
         conn.commit()
         c.close()
         return True
@@ -69,7 +69,7 @@ class Todo:
     def close(self, no):
         conn = self.__connect()
         c = conn.cursor()
-        c.execute("UPDATE todo SET status = 0 WHERE id LIKE ?", (no))
+        c.execute("UPDATE todo SET status = 0 WHERE id LIKE ?", (str(no),))
         conn.commit()
         c.close()
         return True
