@@ -540,7 +540,6 @@
      h6 {
        font-size: 15px; } }
    h6:before {
-     content: "* * * * * *";
      color: #859900; }
  
  h5 {
@@ -550,7 +549,6 @@
      h5 {
        font-size: 16.5px; } }
    h5:before {
-     content: "* * * * *";
      color: #6c71c4; }
  
  h4 {
@@ -560,7 +558,7 @@
      h4 {
        font-size: 18px; } }
    h4:before {
-     content: "* * * *";
+
      color: #2aa198; }
  
  h3 {
@@ -570,7 +568,7 @@
      h3 {
        font-size: 21px; } }
    h3:before {
-     content: "* * *";
+
      color: #268bd2; }
  
  h2 {
@@ -589,7 +587,7 @@
      h2 {
        font-size: 25.5px; } }
    h2:before {
-     content: "* *";
+
      color: #b58900; }
  
  h1 {
@@ -609,7 +607,7 @@
      h1 {
        font-size: 30px; } }
    h1:before {
-     content: "*";
+
      color: #dc322f; }
  
  ul, ol {
