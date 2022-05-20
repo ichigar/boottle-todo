@@ -1,30 +1,29 @@
 % include('header.tpl', title = "TODO app")
-<p>Añadir una nueva tarea:</p>
+<h1>TODO app</h1>
+<p><b>Añadir una nueva tarea:</b></p>
 <form action="/new" method="POST">
-    <input type="text" size="65" maxlength="100" name="task">
+    <input type="text" size="70" maxlength="100" name="task">
     <input type="submit" name="save" value="Guardar">
 </form>
-<p>Las tareas actuales son las siguientes:</p>
+<p><b>Las tareas actuales son las siguientes:</b></p>
 <table border="1">
     <tr>
         <th>ID</th>
         <th>Tarea</th>
         <th>Estado</th>
-        <th colspan="2">Acciones</th>
+        <th colspan="3">Acciones</th>
     </tr>
     %for row in rows:
     <tr>
-        %for i in range(3):
-            %if i != 2:
-                <td>{{row[i]}}</td>
-            %else:
-                %if row[i] == 0:
-                    <td>Cerrada</td>
-                %else:
-                    <td>Abierta</td>
-                %end
-            %end
+        <td>{{row[0]}}</td>
+        %if row[2] == 0:
+            <td class="finalizado">{{row[1]}}</td>
+            <td>Cerrada</td>
+        %else:
+            <td>{{row[1]}}</td>
+            <td>Abierta</td>
         %end
+            
         <td>
             <form action="/edit/{{row[0]}}" method="GET">
                 <input type="submit" name="save" value="Editar">
@@ -34,6 +33,17 @@
             <form action="/delete/{{row[0]}}" method="GET">
                 <input type="submit" name="delete" value="Borrar">
             </form>
+        </td>
+        <td>
+            %if row[2] == 0:
+                <form action="/open/{{row[0]}}" method="POST">
+                    <input type="submit" name="open" value="Abrir">
+                </form>
+            %else:
+                <form action="/close/{{row[0]}}" method="POST">
+                    <input type="submit" name="close" value="Cerrar">
+                </form>
+            %end
         </td>
     </tr>
     %end
