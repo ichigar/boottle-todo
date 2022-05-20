@@ -14,17 +14,15 @@
     </tr>
     %for row in rows:
     <tr>
-        %for i in range(3):
-            %if i != 2:
-                <td>{{row[i]}}</td>
-            %else:
-                %if row[i] == 0:
-                    <td>Cerrada</td>
-                %else:
-                    <td>Abierta</td>
-                %end
-            %end
+        <td>{{row[0]}}</td>
+        %if row[2] == 0:
+            <td class="finalizado">{{row[1]}}</td>
+            <td>Cerrada</td>
+        %else:
+            <td>{{row[1]}}</td>
+            <td>Abierta</td>
         %end
+            
         <td>
             <form action="/edit/{{row[0]}}" method="GET">
                 <input type="submit" name="save" value="Editar">

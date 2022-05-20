@@ -925,4 +925,9 @@
    font-weight: 400; }
  
  /*# sourceMappingURL=generic-light.css.map */
+ /* Añadido manualmente*/
+ .finalizado {
+  text-decoration:line-through;
+}
+
  
