@@ -53,7 +53,7 @@ class Todo:
     def delete(self, no):
         conn = self.__connect()
         c = conn.cursor()
-        c.execute("DELETE FROM todo WHERE id LIKE ?", str(no))
+        c.execute("DELETE FROM todo WHERE id LIKE ?", (str(no),))
         conn.commit()
         c.close()
         return True
