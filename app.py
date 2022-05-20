@@ -98,4 +98,5 @@ app = bottle.default_app()
 if __name__ == '__main__':
     if not os.path.exists(DATABASE) or os.path.getsize(DATABASE) == 0:
         todo.create()
+        
     run(host='localhost', port=8080, debug=True, reloader=True)
