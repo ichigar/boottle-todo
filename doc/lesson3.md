@@ -28,6 +28,7 @@ $ git switch lesson2
 * [Lesson 5. Mostrando contenido estático](doc/lesson5.md)
 * [Lesson 6. Organizando el código](doc/lesson6.md)
 * [Lesson 7. Estructurando las plantillas](doc/lesson7.md)
+* [Lesson 8. Desplegando con gunicorn y docker](doc/lesson8.md)
 
 ## Lesson3. Dando formato con plantillas
 
