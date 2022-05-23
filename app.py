@@ -3,8 +3,9 @@ import sys
 sys.path.append('models') # add the models directory to the path
 
 import bottle
-from bottle import run
+from bottle import route, run, template, request, get, post, redirect, static_file, error, response
 from config.config import DATABASE, TODO_DEFINITION
+from models.todo import Todo
 
 # Importamos las rutas de la carpeta routes
 from routes.routes_todo import *
