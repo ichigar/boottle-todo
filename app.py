@@ -6,6 +6,7 @@ import bottle
 from bottle import route, run, template, request, get, post, redirect, static_file, error, response
 from config.config import DATABASE
 from models.todo import Todo
+from validate import Validate
 
 
 todo = Todo(DATABASE) # Creamos objeto vinculado a la base de datos
@@ -32,10 +33,12 @@ def new_task_save():
             'task': request.POST.task.strip(), 
             'status': 1
         }
-        todo.insert(data)
-
-        # se muestra el resultado de la operación
-        return redirect('/')
+        valid = Validate()
+        if not valid.not_empty(data['task']):
+            return template('new_task', error='The task cannot be empty')
+        else:     
+            todo.insert(data)
+            redirect('/')
 
 @get('/edit/<no:int>')
 def edit_item_form(no):
