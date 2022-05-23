@@ -15,11 +15,6 @@ def index():
     rows=todo.select()
     return template('index', rows=todo.select())
 
-@route('/todo')
-@route('/my_todo_list')
-def todo_list():
-    return template('make_table', rows=todo.select())
-
 
 @get('/new')
 def new_task_form():
