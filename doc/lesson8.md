@@ -29,6 +29,7 @@ $ git switch lesson2
 * [Lesson 6. Organizando el código](doc/lesson6.md)
 * [Lesson 7. Estructurando las plantillas](doc/lesson7.md)
 * [Lesson 8. Desplegando con gunicorn y docker](doc/lesson8.md)
+* [Lesson 9. Refactorizando el acceso a la base de datos](doc/lesson9.md)
 
 ## Lesson 8. Desplegando con gunicorn en docker
 
@@ -166,4 +167,4 @@ $ cd bottle-todo
 $ git switch lesson8
 ```
 
-De momento este es el último archivo de la serie
+El tutorial continua en [lesson9](lesson9.md).
