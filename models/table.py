@@ -10,6 +10,23 @@ class Table(ABC):
         conn = sqlite3.connect(self._db_name)
         return conn
     
+    def create(self, table_definition):
+        query = f"CREATE TABLE {self._table_name} ({', '.join(table_definition)})"
+        try:
+            conn = self._connect()
+            cursor = conn.cursor()
+            cursor.execute(query)
+            conn.commit()
+            conn.close()
+        
+        except sqlite3.Error as error:
+            print("Error while executing sqlite script", error)
+        
+        finally:
+            if conn:
+                conn.close()
+            return True
+    
     def insert(self, data):
         data_keys = list(data.keys())
         data_values = list(data.values())

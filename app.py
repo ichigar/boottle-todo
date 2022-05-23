@@ -4,7 +4,7 @@ sys.path.append('models') # add the models directory to the path
 
 import bottle
 from bottle import route, run, template, request, get, post, redirect, static_file, error, response
-from config.config import DATABASE
+from config.config import DATABASE, TODO_DEFINITION
 from models.todo import Todo
 
 
@@ -113,6 +113,7 @@ app = bottle.default_app()
 
 if __name__ == '__main__':
     if not os.path.exists(DATABASE) or os.path.getsize(DATABASE) == 0:
-        todo.create()
+        
+        todo.create(TODO_DEFINITION)
         
     run(host='localhost', port=8080, debug=True, reloader=True)
