@@ -369,7 +369,7 @@ import sys
 sys.path.append('models') # add the models directory to the path
 ```
 
-Ya que cuando se importe la clase `Todo` se importa desde esta la clase `Table`, pero como desde la carpeta raíz del proyecto no se sabe acceder a la carpeta `models` hemos de añadirla al `path` 
+Este cambio tenemos que hacerlo debido a que cuando se importe la clase `Todo` se importa desde esta la clase `Table`, pero como desde la carpeta raíz del proyecto no se sabe acceder a la carpeta `models` hemos de añadirla al `path` 
 
 El contenido completo del archivo `app.py` se puede encontrar en el fichero [app.py](../app.py).
 
