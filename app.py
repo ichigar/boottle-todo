@@ -35,7 +35,7 @@ def new_task_save():
         }
         valid = Validate()
         if not valid.not_empty(data['task']):
-            return template('new_task', error='The task cannot be empty')
+            return template('/', error='The task cannot be empty')
         else:     
             todo.insert(data)
             redirect('/')
