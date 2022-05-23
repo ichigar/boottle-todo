@@ -798,6 +798,18 @@ def delete_item(no):
 
 El resultado hasta este punto lo tienes en la rama `lesson6` del repositorio den **Github** en el que se aloja este proyecto. Puedes obtenerlo clonando el repositorio y accediendo a la rama `lesson6`
 
+<<<<<<< HEAD
+=======
+* [Lesson 1. Empezando con bottle](doc/lesson1.md)
+* [Lesson 2. Configuración inicial](doc/lesson2.md)
+* [Lesson 3. Dando formato con plantillas](doc/lesson3.md)
+* [Lesson 4. Editando y borrando](doc/lesson4.md)
+* [Lesson 5. Mostrando contenido estático](doc/lesson5.md)
+* [Lesson 6. Organizando el código](doc/lesson6.md)
+* [Lesson 7. Estructurando las plantillas](doc/lesson7.md)
+* [Lesson 8. Desplegando con gunicorn y docker](doc/lesson8.md)
+* [Lesson 9. Refactorizando el acceso a la base de datos](doc/lesson9.md)
+>>>>>>> 03f2689 (se actualizan docs)
 
 ## Recursos
 
