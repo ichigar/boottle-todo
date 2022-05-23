@@ -165,4 +165,10 @@ $ cd bottle-todo
 $ git switch lesson5
 ```
 
-El tutorial continua en [lesson6](lesson6.md).
+### Lección siguiente
+
+Puedes pasar a la siguiente lección ejecutando:
+
+```bash
+$ git switch lesson5
+```
