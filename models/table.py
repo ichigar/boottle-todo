@@ -2,9 +2,9 @@ import sqlite3
 from abc import ABC
  
 class Table(ABC):
-    def __init__(self, db_name, table_name):
-        self._table_name = table_name
+    def __init__(self, db_name):
         self._db_name = db_name
+        self._table_name = ""
 
     def _connect(self):
         conn = sqlite3.connect(self._db_name)
@@ -88,16 +88,16 @@ class Table(ABC):
                 conn.close()
             return True
         
-    def get_field(self, field, where):
+    def get(self, fields, where):
         clave = list(where.keys())[0] 
         value = where[clave]
         where_clause = f"{clave} LIKE ?"
-        query = f"SELECT {field} FROM {self._table_name} WHERE {where_clause}"
+        query = f"SELECT {', '.join(fields)} FROM {self._table_name} WHERE {where_clause}"
         try:
             conn = self._connect()
             cursor = conn.cursor()
             cursor.execute(query, (value,))
-            data = cursor.fetchone()
+            row = cursor.fetchone()
             conn.close()
         
         except sqlite3.Error as error:
@@ -106,24 +106,5 @@ class Table(ABC):
         finally:
             if conn:
                 conn.close()
-            return data
+            return row
         
-    def update_field(self, field, value, where):
-        clave = list(where.keys())[0] 
-        where_value = where[clave]
-        where_clause = f"{clave} LIKE ?"
-        query = f"UPDATE {self._table_name} SET {field} = ? WHERE {where_clause}"
-        try:
-            conn = self._connect()
-            cursor = conn.cursor()
-            cursor.execute(query, (value, where_value))
-            conn.commit()
-            conn.close()
-        
-        except sqlite3.Error as error:
-            print("Error while executing sqlite script", error)
-        
-        finally:
-            if conn:
-                conn.close()
-            return True
