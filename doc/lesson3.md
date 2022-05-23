@@ -29,6 +29,7 @@ $ git switch lesson2
 * [Lesson 6. Organizando el código](doc/lesson6.md)
 * [Lesson 7. Estructurando las plantillas](doc/lesson7.md)
 * [Lesson 8. Desplegando con gunicorn y docker](doc/lesson8.md)
+* [Lesson 9. Refactorizando el acceso a la base de datos](doc/lesson9.md)
 
 ## Lesson3. Dando formato con plantillas
 
