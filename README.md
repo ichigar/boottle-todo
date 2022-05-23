@@ -55,9 +55,9 @@ Si queremos que nuestra clase pueda trabajar con cualquier tabla de cualquier ba
 ```python
 ...
 class Table(ABC):
-    def __init__(self, table_name, db_name):
-        self.table_name = table_name
+    def __init__(self, db_name):
         self.db_name = db_name
+        self.table_name = ""
 ```
 
 Agregamos también el método protegido `_connect` que nos permitirá conectarnos a la base de datos.
@@ -65,9 +65,9 @@ Agregamos también el método protegido `_connect` que nos permitirá conectarno
 ```python
 ...
 class Table(ABC):
-    def __init__(self, table_name, db_name):
-        self.table_name = table_name
+    def __init__(self, db_name):
         self.db_name = db_name
+        self.table_name = ""
 
     def _connect(self):
         conn = sqlite3.connect(self.db_name)
