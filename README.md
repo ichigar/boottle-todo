@@ -94,4 +94,10 @@ $ cd bottle-todo
 $ git switch lesson7
 ```
 
-De momento este es el último archivo de la serie
+### Lección siguiente
+
+Puedes pasar a la siguiente lección ejecutando:
+
+```bash
+$ git switch lesson8
+```
