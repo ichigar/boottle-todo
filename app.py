@@ -1,10 +1,15 @@
+import sys
+  
+# appending a path
+sys.path.append('models')
+
 import bottle
 from bottle import route, run, template, request, get, post, redirect, static_file, error, response
-from config.config import DATABASE
+from config.config import DATABASE, TABLE_TODO
 from models.todo import Todo
 
 
-todo = Todo(DATABASE) # Creamos objeto vinculado a la base de datos
+todo = Todo(DATABASE, TABLE_TODO) # Creamos objeto vinculado a la base de datos
 
 @get('/')
 def index():
@@ -24,8 +29,11 @@ def new_task_form():
 @post('/new')
 def new_task_save():
     if request.POST.save:  # the user clicked the `save` button
-        new = request.POST.task.strip()    # get the task from the form
-        todo.insert_task(new)
+        data = {
+            'task': request.POST.task.strip(), 
+            'status': 1
+        }
+        todo.insert(data)
 
         # se muestra el resultado de la operación
         return redirect('/')
@@ -39,11 +47,13 @@ def edit_item_form(no):
 def edit_item(no):
     
     if request.POST.save:
-        edit = request.POST.task.strip()
-        status = request.POST.status.strip()
+        data = {
+            'task': request.POST.task.strip(), 
+            'status': request.POST.status.strip()
+        }
+        where = {'id': no}
         
-
-        todo.update(no, edit, status)
+        todo.update(data, where)
         
     return redirect('/')
 
@@ -56,7 +66,8 @@ def delete_item_form(no):
 def delete_item(no):
     
     if request.POST.delete:
-        todo.delete(no)
+        where = {'id': no}
+        todo.delete(where)
 
     return redirect('/')
 
@@ -64,7 +75,7 @@ def delete_item(no):
 def open_task(no):
     
     if request.POST.open:
-        todo.open(no)
+        todo.open_task(no)
 
     return redirect('/')
 
@@ -72,7 +83,7 @@ def open_task(no):
 def close_task(no):
     
     if request.POST.close:
-        todo.close(no)
+        todo.close_task(no)
 
     return redirect('/')
 
