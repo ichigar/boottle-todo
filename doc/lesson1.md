@@ -28,6 +28,8 @@ $ git switch lesson2
 * [Lesson 5. Mostrando contenido estático](doc/lesson5.md)
 * [Lesson 6. Organizando el código](doc/lesson6.md)
 * [Lesson 7. Estructurando las plantillas](doc/lesson7.md)
+* [Lesson 8. Desplegando con gunicorn y docker](doc/lesson8.md)
+* [Lesson 9. Refactorizando el acceso a la base de datos](doc/lesson9.md)
 
 ## Lesson1. Empezando con bottle
 
@@ -113,4 +115,12 @@ $ cd bottle-todo
 $ git switch lesson1
 ```
 
-El tutorial continua en [lesson2](lesson2.md).
+### Siguiente lección
+
+En la siguiente lección veremos cómo realizar la configuración inicial para una aplicación de gestión de tareas.
+
+Para acceder a la misma nos cambiamos a la rama de la lección:
+
+```bash
+$ git switch lesson2
+```
