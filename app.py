@@ -1,15 +1,14 @@
+import os
 import sys
-  
-# appending a path
-sys.path.append('models')
+sys.path.append('models') # add the models directory to the path
 
 import bottle
 from bottle import route, run, template, request, get, post, redirect, static_file, error, response
-from config.config import DATABASE, TABLE_TODO
+from config.config import DATABASE
 from models.todo import Todo
 
 
-todo = Todo(DATABASE, TABLE_TODO) # Creamos objeto vinculado a la base de datos
+todo = Todo(DATABASE) # Creamos objeto vinculado a la base de datos
 
 @get('/')
 def index():
@@ -40,7 +39,9 @@ def new_task_save():
 
 @get('/edit/<no:int>')
 def edit_item_form(no):
-    cur_data = todo.get_task(no)  # get the current data for the item we are editing
+    fields = ['task', 'status']
+    where = {'id': no}
+    cur_data = todo.get(fields, where)  # get the current data for the item we are editing
     return template('edit_task', old=cur_data, no=no)
 
 @post('/edit/<no:int>')
@@ -59,7 +60,9 @@ def edit_item(no):
 
 @get('/delete/<no:int>')
 def delete_item_form(no):
-    cur_data = todo.get_task(no)  # get the current data for the item we are editing
+    fields = ['task', 'status']
+    where = {'id': no}
+    cur_data = todo.get(fields, where)  # get the current data for the item we are editing
     return template('delete_task', old=cur_data, no=no)
 
 @post('/delete/<no:int>')
@@ -75,7 +78,11 @@ def delete_item(no):
 def open_task(no):
     
     if request.POST.open:
-        todo.open_task(no)
+        data = {
+            'status': 1
+        }
+        where = {'id': no}
+        todo.update(data, where)
 
     return redirect('/')
 
@@ -83,7 +90,11 @@ def open_task(no):
 def close_task(no):
     
     if request.POST.close:
-        todo.close_task(no)
+        data = {
+            'status': 0
+        }
+        where = {'id': no}
+        todo.update(data, where)
 
     return redirect('/')
 
