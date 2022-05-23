@@ -28,6 +28,9 @@ $ git switch lesson2
 * [Lesson 5. Mostrando contenido estático](doc/lesson5.md)
 * [Lesson 6. Organizando el código](doc/lesson6.md)
 * [Lesson 7. Estructurando las plantillas](doc/lesson7.md)
+* [Lesson 8. Desplegando con gunicorn y docker](doc/lesson8.md)
+* [Lesson 9. Refactorizando el acceso a la base de datos](doc/lesson9.md)
+
 
 ## Lesson3. Dando formato con plantillas
 
@@ -196,4 +199,10 @@ $ cd bottle-todo
 $ git switch lesson3
 ```
 
-El tutorial continua en [lesson4](lesson4.md).
+### Lección siguiente
+
+Puedes pasar a la siguiente lección ejecutando:
+
+```bash
+$ git switch lesson9
+```
