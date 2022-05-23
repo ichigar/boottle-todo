@@ -1,4 +1,4 @@
-# Introducción a bootle
+# Introducción a bootle. TODO app.
 
 ## Antes de empezar
 
@@ -13,6 +13,7 @@ $ git clone https://github.com/ichigar/bottle-todo.git
 El proyecto se ha desarrollado paso por paso en ramas. Pasándote a la rama de cada lección, podrás ver el código fuente de cada una y la documentación:
 
 ```bash
+$ cd bottle-todo
 $ git switch lesson1
 $ git switch lesson2
 ...
@@ -85,8 +86,14 @@ Si accedemos, por ejemplo, a la página `http://localhost:8080/edit/1` y miramos
 
 Ya sólo nos resta hacer los mismos cambios en todas las plantillas.
 
-## Recursos
+### Archivos de la lección
 
-* [Bottle - Web oficial del proyecto](http://bottlepy.org/)
-* [Bottle - Documentación](https://bottlepy.org/docs/dev/index.html)
-* [Bottle - TODO app tutorial](https://bottlepy.org/docs/dev/tutorial_app.html)
+Puedes obtener los archivos de la lección ejecutando:
+
+```bash
+$ git clone https://github.com/ichigar/bottle-todo.git
+$ cd bottle-todo
+$ git switch lesson7
+```
+
+De momento este es el último archivo de la serie
