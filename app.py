@@ -1,13 +1,35 @@
 import os
 import sys
 sys.path.append('models') # add the models directory to the path
+sys.path.append('forms')
 
 import bottle
-from bottle import route, run, template, request, get, post, redirect, static_file, error, response
+from bottle import route, run, template, request, get, post, redirect, static_file, error
 from config.config import DATABASE, TODO_DEFINITION
 from models.todo import Todo
+from forms.registration import RegistrationForm
 
 
+@get('/register')
+def register():
+    form = RegistrationForm(request.POST)
+    return template('register', form=form)
+
+@post('/register')
+def register_save():
+    form = RegistrationForm(request.POST) 
+    if form.save.data and form.validate():
+        data = {
+            'username' : form.username.data,
+            'email' : form.email.data,
+            'password' : form.password.data,
+            'accept_rules' : form.accept_rules.data
+        }
+        print(data)
+        redirect('/')
+
+    return template('register', form=form)
+        
 todo = Todo(DATABASE) # Creamos objeto vinculado a la base de datos
 
 @get('/')
