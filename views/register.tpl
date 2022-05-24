@@ -1,5 +1,5 @@
 % include('header.tpl', title = "registrarse")
-
+<h1>Formulario de registro</h1>
 % if form.errors:
 <blockquote>
     <p>Hay errores en el formulario:</p>
