@@ -1,5 +1,13 @@
 % include('header.tpl', title = "TODO app")
 <h1>TODO app</h1>
+
+% if errors:
+<ul>
+    % for key, error in errors:
+        <li class="error">{{key}}-{{error}}</li>
+    % end
+</ul>
+% end 
 <p><b>Añadir una nueva tarea:</b></p>
 <form action="/new" method="POST">
     <input type="text" size="70" maxlength="100" name="task">
