@@ -38,7 +38,8 @@
     </div>
     <div>
         {{ form.save }}
-        {{ form.cancel }}
+        
     </div>
+    <div><a href="/" class="btn btn-secondary">Cancelar</a></div>
 </form>
 % include('footer.tpl')
