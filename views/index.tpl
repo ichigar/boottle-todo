@@ -1,5 +1,6 @@
 % include('header.tpl', title = "TODO app")
 <h1>TODO app</h1>
+<p><a href="/register">Acceso al formulario de registro</a></p>
 <p><b>Añadir una nueva tarea:</b></p>
 <form action="/new" method="POST">
     <input type="text" size="70" maxlength="100" name="task">
