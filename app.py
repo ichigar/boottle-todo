@@ -6,7 +6,7 @@ import bottle
 from bottle import route, run, template, request, get, post, redirect, static_file, error, response
 from config.config import DATABASE
 from models.todo import Todo
-from validate import Validate
+from validation.validate import Validate
 
 
 todo = Todo(DATABASE) # Creamos objeto vinculado a la base de datos
@@ -14,12 +14,7 @@ todo = Todo(DATABASE) # Creamos objeto vinculado a la base de datos
 @get('/')
 def index():
     rows=todo.select()
-    return template('index', rows=todo.select())
-
-@route('/todo')
-@route('/my_todo_list')
-def todo_list():
-    return template('make_table', rows=todo.select())
+    return template('index', errors = [], rows=todo.select())
 
 
 @get('/new')
@@ -33,9 +28,11 @@ def new_task_save():
             'task': request.POST.task.strip(), 
             'status': 1
         }
-        valid = Validate()
-        if not valid.not_empty(data['task']):
-            return template('/', error='The task cannot be empty')
+        rules = {'task': 'not_empty'}
+        errors = Validate(data, rules)
+        
+        if errors:
+            return template('index', errors=errors, rows=todo.select())
         else:     
             todo.insert(data)
             redirect('/')
