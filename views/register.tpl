@@ -32,7 +32,18 @@
         </ul>
         %end
     </div>
-
+    <div>
+        {{ form.color.label }}:
+        {{ form.color }}
+    </div>
+    <div>
+        {{ form.historia.label }}:
+        {{ form.historia }}
+    </div>
+    <div>
+        {{ form.pais.label }}
+        {{ form.pais }}
+    </div>
     <div>
         {{ form.password.label }}:
         {{ form.password }}

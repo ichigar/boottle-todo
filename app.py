@@ -23,7 +23,10 @@ def register_process():
             'username' : form.username.data,
             'email' : form.email.data,
             'password' : form.password.data,
-            'accept_rules' : form.accept_rules.data
+            'accept_rules' : form.accept_rules.data,
+            'historia' : form.historia.data,
+            'color' : form.color.data,
+            'pais' : form.pais.data
         }
         print(form_data)
         redirect('/')
