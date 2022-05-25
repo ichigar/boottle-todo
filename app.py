@@ -16,16 +16,16 @@ def register():
     return template('register', form=form)
 
 @post('/register')
-def register_save():
+def register_process():
     form = RegistrationForm(request.POST) 
     if form.save.data and form.validate():
-        data = {
+        form_data = {
             'username' : form.username.data,
             'email' : form.email.data,
             'password' : form.password.data,
             'accept_rules' : form.accept_rules.data
         }
-        print(data)
+        print(form_data)
         redirect('/')
 
     return template('register', form=form)
