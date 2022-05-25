@@ -6,7 +6,7 @@
     <ul>
     % for field, errors in form.errors.items():
         % for error in errors:
-        <li class="mark">{{field}}: {{error}}</li>
+        <li>{{field}}: {{error}}</li>
         % end
     % end
     </ul>
@@ -21,9 +21,16 @@
 
     </div>
 
-    <div>
+    <div>    
         {{ form.email.label }}:
         {{ form.email }}
+        %if form.email.errors:
+        <ul class="errors">
+            %for error in form.email.errors:
+                <li>{{ error }}</li>
+            %end
+        </ul>
+        %end
     </div>
 
     <div>
@@ -33,6 +40,13 @@
     <div>
         {{ form.password_confirm.label }}:
         {{ form.password_confirm }}
+        %if form.password.errors:
+        <ul class="errors">
+            %for error in form.password.errors:
+                <li>{{ error }}</li>
+            % end
+        </ul>
+        %end
     </div>
 
     <div>
