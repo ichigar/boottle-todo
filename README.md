@@ -52,11 +52,50 @@ Para poder utilizar la librería **WTForms**, debemos instalarla. En un terminal
 $ pip install wtforms
 ```
 
+También vamos a necesitar la librería `email_validator` para validar el formato de los correos electrónicos.
+
+```bash
+$ pip install email_validator
+```
+
 Y modificamos `requirements.txt` para que incluya la dependencia:
 
 ```python
 $ pip freeze > requirements.txt
 ```
+
+Deberíamos hacer, al menos, un `commit` cada vez que hayamos completado el contenido de uno de los archivos de la rama.
+
+```bash
+$ git commit -am "requirements.txt con wtforms y email_validator"
+```
+
+## Definiendo un formulario
+
+Empezamos creando en la carpeta raíz del proyecto una carpeta de nombre `forms` y dentro de ella un archivo `register.py`:
+
+```python
+from wtforms import Form, BooleanField, StringField, PasswordField, SubmitField , validators
+
+class RegistrationForm(Form):
+    
+    username = StringField('Username', [validators.Length(min=4, max=25)], default='nombre de usuario')
+    email = StringField('Email Address', [validators.InputRequired(), validators.Length(min=6, max=60), validators.Email()])
+    accept_rules = BooleanField('Acepto las reglas del sitio', [validators.InputRequired()])
+    password = PasswordField('New Password', [
+        validators.DataRequired(),
+        validators.EqualTo('password_confirm', 
+                           message='Las contraseñas no coinciden')
+        ])
+    password_confirm = PasswordField('Repeat Password')
+    save = SubmitField('Guardar')
+    cancel = SubmitField('Cancelar')
+```
+
+Para cada formulario que queramos añadir a nuestra aplicación creamos una clase que herede de `Form` y que contenga los campos que incluirá el formulario.
+
+Para añadir un campo empezamos poniendo el nombre de la variable que representará el 
+
 
 ## Recursos
 

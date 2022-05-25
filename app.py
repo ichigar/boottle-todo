@@ -7,7 +7,7 @@ import bottle
 from bottle import route, run, template, request, get, post, redirect, static_file, error
 from config.config import DATABASE, TODO_DEFINITION
 from models.todo import Todo
-from forms.registration import RegistrationForm
+from forms.register import RegistrationForm
 
 
 @get('/register')
