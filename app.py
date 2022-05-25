@@ -27,7 +27,7 @@ def register_process():
         }
         print(form_data)
         redirect('/')
-
+    print(form.errors)
     return template('register', form=form)
         
 todo = Todo(DATABASE) # Creamos objeto vinculado a la base de datos
