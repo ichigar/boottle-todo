@@ -345,6 +345,13 @@ Ya solo te quedaría investigar cómo se generan otros tipos de campos del formu
 
 * [wtforms - WtForms crash course](https://wtforms.readthedocs.io/en/3.0.x/crash_course/)
 
+Espero que no te hayas olvidado de ir haciendo los `commits` correspondientes. Si al final decides quedarte con los cambios debes fusionar la rama con la rama `main` y subir los cambios:
+
+```bash
+$ git switch main
+$ git merge feature/wtforms
+$ git push origin main
+```
 ### Archivos de la lección
 
 Puedes obtener los archivos de la lección ejecutando:

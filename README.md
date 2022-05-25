@@ -341,6 +341,13 @@ Y se nos redirigirá a la página principal.
 
 Ya solo te quedaría investigar cómo se generan otros tipos de campos del formulario como listas de selección, checkbox, etc. Y cómo utilizar otro tipo de validaciones.
 
+Espero que no te hayas olvidado de ir haciendo los `commits` correspondientes. Si al final decides quedarte con los cambios debes fusionar la rama con la rama `main` y subir los cambios:
+
+```bash
+$ git switch main
+$ git merge feature/wtforms
+$ git push origin main
+```
 ## Recursos
 
 * [Bottle - Web oficial del proyecto](http://bottlepy.org/)
