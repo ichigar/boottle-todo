@@ -18,6 +18,12 @@ $ git switch lesson1
 $ git switch lesson2
 ...
 ```
+## Tutoriales en ramas
+
+Algunas funcionalidades extra no se incluyen en el proyecto, pero pueden ser accedas cambiando a determianadas ramas:
+
+* `feature/auth`: autenticación básica de usuarios al acceder a una ruta
+* `feature/upload-file`: subir archivos a la aplicación
 
 ## Índice de contenidos
 
