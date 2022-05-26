@@ -20,7 +20,7 @@ class RegistrationForm(Form):
     
     historia = TextAreaField('Cuéntame algo', [validators.Length(min=10, max=1000)])
     
-    pais = SelectField(label='País', choices=COUNTRIES, validators = [validators.InputRequired()])
+    pais = SelectField(label='País', choices=COUNTRIES, default = 'ES', validators = [validators.InputRequired()])
     
     password = PasswordField('New Password', [
                                     validators.Length(min=10, max=60),
