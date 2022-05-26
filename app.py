@@ -8,8 +8,32 @@ from bottle import route, run, template, request, get, post, redirect, static_fi
 from config.config import DATABASE, TODO_DEFINITION
 from models.todo import Todo
 from forms.register import RegistrationForm
+##################################################################
+from forms.upload import UploadForm
 
 
+@get('/upload')
+def upload_file():
+    form = UploadForm(request.POST)
+    return template('upload', form=form)
+
+@post('/upload')
+def do_upload():
+    form = UploadForm(request.POST)
+    print(form.file.data)
+    if form.file.data:
+        filename = form.file.data.filename
+        
+        try:
+            form.file.data.save('uploads/' + filename)
+        except Exception as e:
+            print(e)
+            return template('upload', form=form)
+        return redirect('/')
+        
+    
+    return template('upload', form=form)
+####################################################################
 @get('/register')
 def register():
     form = RegistrationForm(request.POST)
