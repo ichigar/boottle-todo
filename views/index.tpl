@@ -1,19 +1,27 @@
 % include('header.tpl', title = "TODO app")
+
+<div class="container">
 <h1>TODO app</h1>
 <p><a href="/register">Acceso al formulario de registro</a></p>
 <p><b>Añadir una nueva tarea:</b></p>
 <form action="/new" method="POST">
-    <input type="text" size="70" maxlength="100" name="task">
-    <input type="submit" name="save" value="Guardar">
+    <div class="form-group">
+    <label for="task">Tarea</label>
+    <input type="text" class="form-control" size="70" maxlength="100" name="task">
+    </div>
+    <button type="submit" class="btn btn-primary" name="save" value="Guardar">Guardar</button>
+
 </form>
 <p><b>Las tareas actuales son las siguientes:</b></p>
-<table border="1" id="tasks">
+<table class="table table-striped" id="data">
     <thead>
     <tr>
         <th>ID</th>
         <th>Tarea</th>
         <th>Estado</th>
-        <th colspan="3">Acciones</th>
+        <th>Editar</th>
+        <th>Borrar</th>
+        <th>Acciones</th>
     </tr>
     </thead>
     <tbody>
@@ -21,7 +29,7 @@
     <tr>
         <td>{{row[0]}}</td>
         %if row[2] == 0:
-            <td class="finalizado">{{row[1]}}</td>
+            <td><del>{{row[1]}}</del></td>
             <td>Cerrada</td>
         %else:
             <td>{{row[1]}}</td>
@@ -53,4 +61,26 @@
     %end
     </tbody>
 </table>
-% include('footer.tpl')
+</div>
+<script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap5.js"></script>
+<script>
+    $(document).ready(function () {
+      $('#data').DataTable({
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
+        },
+        columns: [
+          null,
+          null,
+          null,
+          {orderable: false, searchable: false},
+          {orderable: false, searchable: false},
+          {orderable: false, searchable: false},
+          ],
+      });
+    });
+</script>
+</body>
+</html>
