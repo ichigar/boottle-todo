@@ -40,9 +40,35 @@ Algunas funcionalidades extra no se incluyen en el proyecto, pero pueden ser acc
 
 ## Tablas interactivas 
 
+La librería de javascript [DataTables](https://datatables.net/) permite de forma sencilla dar interactividad a tablas de datos. Incluye funcionalidades como filtrado, ordenación, paginación, etc.
+
+### Modificando las vistas
+
+Usaremos `bootstrap` como framework css para dar estilo a las tablas.
+
+En la web de prueba, en lugar de usar la plantilla del encabezado `header.tpl` insertamos un encabezado personalizado.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap5.css">
+    <title>Tareas</title>
+  </head>
+<body>
+```
+
 Empezamos modificando la vista `views/index.tpl` añadiendo a la tabla un `id` y las etiquetas `thead` y `tbody`. En la tabla no se puede usar el atributo `colspan` ya que la librería intenta poner en concordancia los encabezados con los contenidor de la tabla.
 
 ```html
+...
+<div class="container">
+<h1>TODO app</h1>
 ...
 <table class="table table-striped" id="tasks">
     <thead>
@@ -63,7 +89,11 @@ Empezamos modificando la vista `views/index.tpl` añadiendo a la tabla un `id` y
     %end
     </tbody>
 </table>
+</div>
 ```
+
+### Generando datos aleatorios para nuestra base de datos
+
 Instalamos la librería `faker` para generar datos aleatorios:
 
 ```bash
@@ -120,12 +150,52 @@ Al acceder a la ruta `/` se muestran las 10 tareas generadas.
 
 ### Insertando Javascript
 
-Cómo el javascript solo se usara en la vista raíz lo añadimos al final del fichero `views/index.tpl`:
+Cómo el javascript solo se usara en la vista raíz lo añadimos al final del fichero `views/index.tpl` antes de cerrar el HTML:
 
 ```html
+...
 <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+</body>
+</html>
 ```
+
+### Ejecutando `DataTables`
+
+A continuación del código fuente de javascript insertamos:
+
+```html
+</table>
+</div>
+<script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap5.js"></script>
+<script>
+    $(document).ready(function () {
+      $('#data').DataTable({
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
+        },
+        columns: [
+          null,
+          null,
+          null,
+          {orderable: false, searchable: false},
+          {orderable: false, searchable: false},
+          {orderable: false, searchable: false},
+          ],
+      });
+    });
+</script>
+</body>
+</html>
+```
+
+Invocamos la librería `DataTables` para que nos muestre la tabla de tareas de forma interactiva y le pasamos los parámetros `language` y `columns` para que muestre el idioma español y las columnas `orderable` y `searchable` para que no se pueda ordenar o buscar por esas columnas. Las columnas con valor `null` indican que no se aplica ninguna restricción a las mismas.
+
+Si ahora accedemos a la ruta `/` veremos que nuestra tabla tiene ahora nuevas herramientas que la dotan de interactividad.
+
+![](doc/imgs/data_tables.png)
 ## Recursos
 
 * [Bottle - Web oficial del proyecto](http://bottlepy.org/)
