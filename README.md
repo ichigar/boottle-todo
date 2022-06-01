@@ -24,6 +24,7 @@ Algunas funcionalidades extra no se incluyen en el proyecto, pero pueden ser acc
 
 * `feature/auth`: autenticación básica de usuarios al acceder a una ruta
 * `feature/upload-file`: subir archivos a la aplicación
+* `feature/interactive-tables`: tablas interactivas con la librería de Javascript [DataTables](https://datatables.net/)
 
 ## Índice de contenidos
 
