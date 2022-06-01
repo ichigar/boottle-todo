@@ -7,13 +7,16 @@
     <input type="submit" name="save" value="Guardar">
 </form>
 <p><b>Las tareas actuales son las siguientes:</b></p>
-<table border="1">
+<table border="1" id="tasks">
+    <thead>
     <tr>
         <th>ID</th>
         <th>Tarea</th>
         <th>Estado</th>
         <th colspan="3">Acciones</th>
     </tr>
+    </thead>
+    <tbody>
     %for row in rows:
     <tr>
         <td>{{row[0]}}</td>
@@ -48,5 +51,6 @@
         </td>
     </tr>
     %end
+    </tbody>
 </table>
 % include('footer.tpl')
