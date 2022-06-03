@@ -15,55 +15,20 @@
 % end
 <form method="POST" action="/register">
     <fieldset>
-    <div>
-        {{ form.username.label }}:
-        {{ form.username }}
-
-    </div>
+    
 
     <div>    
-        {{ form.email.label }}:
-        {{ form.email }}
-        %if form.email.errors:
+        {{ form.id.label }}:
+        {{ form.id }}
+        %if form.id.errors:
         <ul class="errors">
-            %for error in form.email.errors:
+            %for error in form.id.errors:
                 <li>{{ error }}</li>
             %end
         </ul>
         %end
     </div>
-    <div>
-        {{ form.color.label }}:
-        {{ form.color }}
-    </div>
-    <div>
-        {{ form.historia.label }}:
-        {{ form.historia }}
-    </div>
-    <div>
-        {{ form.pais.label }}
-        {{ form.pais }}
-    </div>
-    <div>
-        {{ form.password.label }}:
-        {{ form.password }}
-    </div>
-    <div>
-        {{ form.password_confirm.label }}:
-        {{ form.password_confirm }}
-        %if form.password.errors:
-        <ul class="errors">
-            %for error in form.password.errors:
-                <li>{{ error }}</li>
-            % end
-        </ul>
-        %end
-    </div>
-
-    <div>
-        {{ form.accept_rules.label }}:
-        {{ form.accept_rules }}
-    </div>
+    
 
     <div>
         {{ form.save }}

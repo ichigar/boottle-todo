@@ -1,33 +1,31 @@
 from email_validator import EmailNotValidError
 from wtforms import Form, BooleanField, StringField, PasswordField, SubmitField , RadioField, TextAreaField, SelectField, validators
+import sys
+sys.path.append('models') # add the models directory to the path
+sys.path.append('config')
+
+
+from models.todo import Todo
+from config.config import DATABASE
 
 COUNTRIES = [('', 'Select country'), ('ES', 'Spain'), ('US', 'United States'), ('UK', 'United Kingdom')]
 
+todo = Todo(DATABASE) # Creamos objeto vinculado a la base de datos
 
+    
 class RegistrationForm(Form):
     
-    username = StringField('Username', 
-                               [validators.Length(min=4, max=25)], 
-                               default='nombre de usuario', 
-                               render_kw={'class':'myclass'}
-                            )
-    email  = StringField('Email Address', [
-                                    validators.InputRequired(), 
-                                    validators.Length(min=6, max=60), 
-                                    validators.Email( message='Correo incorrecto')
-                                ])
-    color = RadioField('Color preferido', choices=[('blue', 'Azul'), ('red', 'Rojo'), ('green', 'Verde')])
+    id = StringField('id', [validators.DataRequired()])
     
-    historia = TextAreaField('Cuéntame algo', [validators.Length(min=10, max=1000)])
+    def validate_id(form, id):
+        print(id.data)
+        result = todo.get(['id'], {'id': id.data})
+        print(result)
+        if result != None:
+            # form.id.errors.append('id already exists')
+            raise validators.ValidationError('Id already exists')
     
-    pais = SelectField(label='País', choices=COUNTRIES, validators = [validators.InputRequired()])
     
-    password = PasswordField('New Password', [
-                                    validators.Length(min=10, max=60),
-                                    validators.EqualTo('password_confirm', message='Las contraseñas no coinciden')
-                                ])
-    password_confirm = PasswordField('Repeat Password')
-    accept_rules = BooleanField('Acepto las reglas del sitio', [validators.InputRequired()])
     save = SubmitField('Guardar')
     cancel = SubmitField('Cancelar')
     

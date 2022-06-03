@@ -20,13 +20,7 @@ def register_process():
     form = RegistrationForm(request.POST) 
     if form.save.data and form.validate():
         form_data = {
-            'username' : form.username.data,
-            'email' : form.email.data,
-            'password' : form.password.data,
-            'accept_rules' : form.accept_rules.data,
-            'historia' : form.historia.data,
-            'color' : form.color.data,
-            'pais' : form.pais.data
+            'id' : form.id.data
         }
         print(form_data)
         redirect('/')
