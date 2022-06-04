@@ -7,42 +7,20 @@ import bottle
 from bottle import route, run, template, request, get, post, redirect, static_file, error
 from config.config import DATABASE, TODO_DEFINITION
 from models.todo import Todo
-from forms.register import RegistrationForm
+
 from forms.new_task import NewTaskForm
 
-
-@get('/register')
-def register():
-    form = RegistrationForm(request.POST)
-    return template('register', form=form)
-
-@post('/register')
-def register_process():
-    form = RegistrationForm(request.POST) 
-    if form.save.data and form.validate():
-        form_data = {
-            'id' : form.id.data
-        }
-        print(form_data)
-        redirect('/')
-    print(form.errors)
-    return template('register', form=form)
         
 todo = Todo(DATABASE) # Creamos objeto vinculado a la base de datos
 
 @get('/')
 def index():
-    rows=todo.select()
-    return template('index', rows=todo.select())
-
-
-@get('/new')
-def new_task_form():
+    rows = todo.select()
     form = NewTaskForm(request.POST)
-    return template('new_task', form=form)
+    return template('index', rows=todo.select(), form=form)
 
-@post('/new')
-def new_task_save():
+@post('/')
+def index_save():
     form = NewTaskForm(request.POST) 
     if form.save.data and form.validate():
         form_data = {
@@ -51,7 +29,8 @@ def new_task_save():
         }
         todo.insert(form_data)
         redirect('/')
-    return template('new_task', form=form)
+    rows=todo.select()
+    return template('index', rows=todo.select(), form=form)
 
 
 @get('/edit/<no:int>')
