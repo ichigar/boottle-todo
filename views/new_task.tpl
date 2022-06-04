@@ -2,9 +2,26 @@
 
     <p>Añadir una nueva tarea a la lista:</p>
     <form action="/new" method="POST">
-      <input type="text" size="70" maxlength="100" name="task">
-      <input type="submit" name="save" value="save">
-      <input type="submit" name="cancel" value="Cancelar">
+      <fieldset>
+        <div>    
+            {{ form.task.label }}:
+            {{ form.task }}
+            %if form.task.errors:
+            <ul class="errors">
+                %for error in form.task.errors:
+                    <li>{{ error }}</li>
+                %end
+            </ul>
+            %end
+        </div>
+        
+    
+        <div>
+            {{ form.save }}
+            
+        </div>
+        <div><a href="/" class="btn btn-secondary">Cancelar</a></div>
+    </fieldset>
     </form>   
 
 % include('footer.tpl')

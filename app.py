@@ -8,6 +8,7 @@ from bottle import route, run, template, request, get, post, redirect, static_fi
 from config.config import DATABASE, TODO_DEFINITION
 from models.todo import Todo
 from forms.register import RegistrationForm
+from forms.new_task import NewTaskForm
 
 
 @get('/register')
@@ -37,19 +38,21 @@ def index():
 
 @get('/new')
 def new_task_form():
-    return template('new_task')
+    form = NewTaskForm(request.POST)
+    return template('new_task', form=form)
 
 @post('/new')
 def new_task_save():
-    if request.POST.save:  # the user clicked the `save` button
-        data = {
-            'task': request.POST.task.strip(), 
+    form = NewTaskForm(request.POST) 
+    if form.save.data and form.validate():
+        form_data = {
+            'task' : form.task.data,
             'status': 1
         }
-        todo.insert(data)
+        todo.insert(form_data)
+        redirect('/')
+    return template('new_task', form=form)
 
-        # se muestra el resultado de la operación
-        return redirect('/')
 
 @get('/edit/<no:int>')
 def edit_item_form(no):
