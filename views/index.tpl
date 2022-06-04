@@ -2,9 +2,23 @@
 <h1>TODO app</h1>
 <p><a href="/register">Acceso al formulario de registro</a></p>
 <p><b>Añadir una nueva tarea:</b></p>
-<form action="/new" method="POST">
-    <input type="text" size="70" maxlength="100" name="task">
-    <input type="submit" name="save" value="Guardar">
+<form action="/" method="POST">
+    <fieldset>
+        <div>    
+            {{ form.task.label }}:
+            {{ form.task }}
+            %if form.task.errors:
+            <ul class="errors">
+                %for error in form.task.errors:
+                    <li>{{ error }}</li>
+                %end
+            </ul>
+            %end
+        </div>
+        <div>
+            {{ form.save }}    
+        </div>
+    </fieldset>
 </form>
 <p><b>Las tareas actuales son las siguientes:</b></p>
 <table border="1">
