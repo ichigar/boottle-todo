@@ -12,7 +12,7 @@ todo = Todo(DATABASE)
 
 class NewTaskForm(Form):
     
-    task = StringField('Tarea', [validators.DataRequired()], render_kw={"length": "100"})
+    task = StringField('Tarea', [validators.DataRequired()], render_kw={"size" : "70", "maxlength" : "100"})
     
     def validate_task(form, task):
         result = todo.get(['task'], {'task': task.data})

@@ -15,7 +15,7 @@
             %end
         </div>
         <div>
-            {{ form.task.label }}:
+            {{ form.status.label }}:
             {{ form.status }}
         <div>
             {{ form.save }}    
