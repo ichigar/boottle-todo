@@ -9,6 +9,7 @@ from config.config import DATABASE, TODO_DEFINITION
 from models.todo import Todo
 
 from forms.new_task import NewTaskForm
+from forms.edit_task import EditTaskForm
 
         
 todo = Todo(DATABASE) # Creamos objeto vinculado a la base de datos
@@ -38,16 +39,22 @@ def edit_item_form(no):
     fields = ['task', 'status']
     where = {'id': no}
     cur_data = todo.get(fields, where)  # get the current data for the item we are editing
-    return template('edit_task', old=cur_data, no=no)
+    form = EditTaskForm(request.POST)
+    form.task.data = cur_data[0]
+    form.status.data = True if cur_data[1] == 0 else False
+    return template('edit_task', form=form, no=no)
+    # return template('edit_task', old=cur_data, no=no)
 
 @post('/edit/<no:int>')
 def edit_item(no):
-    
-    if request.POST.save:
+    form = EditTaskForm(request.POST)
+    if form.save.data and form.validate():
+        status = 0 if form.status.data else 1
         data = {
-            'task': request.POST.task.strip(), 
-            'status': request.POST.status.strip()
+            'task': form.task.data, 
+            'status': status,
         }
+        print(data)
         where = {'id': no}
         
         todo.update(data, where)
