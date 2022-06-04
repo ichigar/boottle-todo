@@ -25,7 +25,7 @@ def index_save():
     form = NewTaskForm(request.POST) 
     if form.save.data and form.validate():
         form_data = {
-            'task' : form.task.data,
+            'task' : request.POST.task,
             'status': 1
         }
         todo.insert(form_data)
@@ -36,14 +36,18 @@ def index_save():
 
 @get('/edit/<no:int>')
 def edit_item_form(no):
+    # Obtenemos la tarea a editar
     fields = ['task', 'status']
     where = {'id': no}
-    cur_data = todo.get(fields, where)  # get the current data for the item we are editing
+    cur_data = todo.get(fields, where)  
+    
+    # Creamos formulario y le pasamos los valores actuales de la tarea
     form = EditTaskForm(request.POST)
     form.task.data = cur_data[0]
     form.status.data = True if cur_data[1] == 0 else False
+    
     return template('edit_task', form=form, no=no)
-    # return template('edit_task', old=cur_data, no=no)
+    
 
 @post('/edit/<no:int>')
 def edit_item(no):
@@ -51,10 +55,12 @@ def edit_item(no):
     if form.save.data and form.validate():
         status = 0 if form.status.data else 1
         data = {
-            'task': form.task.data, 
+            #'task': request.forms.getunicode('task'),    # Forma alternativa
+            'task': request.POST.task,
+            #'task': form.task.data,                      # Forma alternativa
             'status': status,
         }
-        print(data)
+
         where = {'id': no}
         
         todo.update(data, where)
