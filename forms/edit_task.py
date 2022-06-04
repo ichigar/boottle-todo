@@ -8,3 +8,4 @@ class EditTaskForm(Form):
   
     save = SubmitField('Guardar')
     cancel = SubmitField('Cancelar')
+    
