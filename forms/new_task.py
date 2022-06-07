@@ -1,4 +1,3 @@
-from turtle import width
 from wtforms import Form, StringField, SubmitField, validators
 import sys
 sys.path.append('models') # add the models directory to the path
