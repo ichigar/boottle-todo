@@ -4,7 +4,7 @@ services:
 
   bottle-todo:
     build: .
-    restart: always
+    #restart: always
     ports:
       - 5000:5000
     # expose 5000
