@@ -19,13 +19,6 @@ $ git switch lesson2
 ...
 ```
 
-## Tutoriales en ramas
-
-Algunas funcionalidades extra no se incluyen en el proyecto, pero pueden ser accedas cambiando a determianadas ramas:
-
-* `feature/auth`: autenticación básica de usuarios al acceder a una ruta
-* `feature/upload-file`: subir archivos a la aplicación
-* `feature/interactive-tables`: tablas interactivas con la librería de Javascript [DataTables](https://datatables.net/)
 ## Índice de contenidos
 
 * [Lesson 1. Empezando con bottle](doc/lesson1.md)
@@ -183,7 +176,7 @@ Fíjate que no es necesario de definir el `HTML` de los campos del formulario en
 
 Si accedemos a `/register` en el navegador nos mostrará el formulario:
 
-![register.png](/doc/imgs/register_wtf.png)
+![register.png](imgs/register_wtf.png)
 
 Si miramos el código fuente del mismo:
 
@@ -309,7 +302,7 @@ En este caso mostramos los mensajes de error al principio de la página en una l
 
 Otra cosa que hace `wtforms` por nosotros es poner el valor anterior en el campo del formulario en caso de que el formulario no sea válido.
 
-![formulario con errores](/doc/imgs/register_post.png)
+![formulario con errores](imgs/register_post.png)
 
 Salvo, evidentemente, la contraseña que nos obliga a volver a introducirla.
 
@@ -348,6 +341,10 @@ Y se nos redirigirá a la página principal.
 
 Ya solo te quedaría investigar cómo se generan otros tipos de campos del formulario como listas de selección, checkbox, etc. Y cómo utilizar otro tipo de validaciones.
 
+## Recursos
+
+* [wtforms - WtForms crash course](https://wtforms.readthedocs.io/en/3.0.x/crash_course/)
+
 Espero que no te hayas olvidado de ir haciendo los `commits` correspondientes. Si al final decides quedarte con los cambios debes fusionar la rama con la rama `main` y subir los cambios:
 
 ```bash
@@ -355,9 +352,12 @@ $ git switch main
 $ git merge feature/wtforms
 $ git push origin main
 ```
-## Recursos
+### Archivos de la lección
 
-* [Bottle - Web oficial del proyecto](http://bottlepy.org/)
-* [Bottle - Documentación](https://bottlepy.org/docs/dev/index.html)
-* [Bottle - TODO app tutorial](https://bottlepy.org/docs/dev/tutorial_app.html)
-* [wtforms - WtForms crash course](https://wtforms.readthedocs.io/en/3.0.x/crash_course/)
+Puedes obtener los archivos de la lección ejecutando:
+
+```bash
+$ git clone https://github.com/ichigar/bottle-todo.git
+$ cd bottle-todo
+$ git switch lesson10
+```
